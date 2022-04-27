@@ -1,9 +1,6 @@
 import * as WebFetch from "./fetch.js"
 
 export { ReadableStream, Blob, FormData  } from './package.js';
-// Electron-renderer should get the browser implementation instead of node
-// Browser configuration is not enough
-
 // Node 18+ introduces fetch API globally and it doesn't support our use-cases yet.
 // For now we always use the polyfill.
 
