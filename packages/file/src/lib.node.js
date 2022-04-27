@@ -8,6 +8,6 @@ import { File as WebFile } from "./file.js"
 
 // Marking export as a DOM File object instead of custom class.
 /** @type {typeof globalThis.File} */
-const File = typeof globalThis.File === "function" ? globalThis.File : WebFile
+const File = WebFile
 
 export { File, Blob }
