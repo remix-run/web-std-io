@@ -1,4 +1,4 @@
-import fetch from '@web-std/fetch'
+import fetch from '@remix-run/web-fetch'
 import { assert } from "chai"
 describe("can fetch local files", () => {
   it("can fetch local file", async () => {

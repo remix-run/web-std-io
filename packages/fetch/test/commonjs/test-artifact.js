@@ -1,14 +1,14 @@
 // @ts-nocheck
 
 const assert = require('assert');
-const fetch = require('@web-std/fetch');
+const fetch = require('@remix-run/web-fetch');
 assert.strictEqual(
 	typeof fetch,
 	'function',
 	'default import must be a function'
 );
 
-const {Request, Response, Headers} = require('@web-std/fetch');
+const {Request, Response, Headers} = require('@remix-run/web-fetch');
 
 assert.ok(
 	new Request('https://www.test.com').headers instanceof Headers,

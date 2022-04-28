@@ -1,5 +1,5 @@
-import { Response } from "@web-std/fetch"
-import { Blob } from "@web-std/blob"
+import { Response } from "@remix-run/web-fetch"
+import { Blob } from "@remix-run/web-blob"
 import { assert } from "./test.js"
 
 /**

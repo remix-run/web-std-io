@@ -3,12 +3,12 @@
   "compilerOptions": {
     "outDir": "dist",
     "paths": {
-      "@web-std/file": ["packages/file/src/lib.js"]
+      "@remix-run/web-file": ["packages/file/src/lib.js"]
     }
   },
   "references": [
     {
-      "path": "../blob",
+      "path": "../blob"
     },
     {
       "path": "../fetch"

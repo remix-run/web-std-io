@@ -1,5 +1,5 @@
 
-export { Blob, ReadableStream } from '@web-std/blob'
-export { FormData } from '@web-std/form-data'
+export { Blob, ReadableStream } from '@remix-run/web-blob'
+export { FormData } from '@remix-run/web-form-data'
 
 

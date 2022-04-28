@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "paths": {
-      "@web-std/fetch": [
+      "@remix-run/web-fetch": [
         "packages/fetch/src/lib.node.js"
       ]
     }

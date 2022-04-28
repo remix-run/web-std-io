@@ -1,5 +1,5 @@
-import { Blob, TextDecoder } from "@web-std/blob"
-import * as lib from "@web-std/blob"
+import { Blob, TextDecoder } from "@remix-run/web-blob"
+import * as lib from "@remix-run/web-blob"
 import { assert } from "./test.js"
 
 /**

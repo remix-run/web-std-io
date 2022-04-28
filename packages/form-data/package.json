@@ -1,5 +1,5 @@
 {
-  "name": "@web-std/form-data",
+  "name": "@remix-run/web-form-data",
   "version": "3.0.2",
   "description": "Web API compatible Form Data implementation",
   "files": [
@@ -30,7 +30,7 @@
     "web-encoding": "1.1.5"
   },
   "author": "Irakli Gozalishvili <dev@gozala.io> (https://gozala.io)",
-  "repository": "https://github.com/web-std/io",
+  "repository": "https://github.com/remix-run/web-std-io",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "15.0.2",

@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "paths": {
-      "@web-std/form-data": ["packages/form-data/src/lib.js"]
+      "@remix-run/web-form-data": ["packages/form-data/src/lib.js"]
     }
   },
   "references": [

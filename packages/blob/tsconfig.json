@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "paths": {
-      "@web-std/blob": ["packages/blob/src/lib.js"]
+      "@remix-run/web-blob": ["packages/blob/src/lib.js"]
     }
   },
   "include": [

@@ -1,5 +1,5 @@
 {
-  "name": "@web-std/blob",
+  "name": "@remix-run/web-blob",
   "version": "3.0.4",
   "description": "Web API compatible Blob implementation",
   "keywords": [
@@ -26,10 +26,10 @@
   },
   "dependencies": {
     "web-encoding": "1.1.5",
-    "@web-std/stream": "1.0.0"
+    "@remix-run/web-stream": "^1.0.0"
   },
   "author": "Irakli Gozalishvili <dev@gozala.io> (https://gozala.io)",
-  "repository": "https://github.com/web-std/io",
+  "repository": "https://github.com/remix-run/web-std-io",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "15.0.2",

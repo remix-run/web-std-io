@@ -1,4 +1,4 @@
-import fetch from '@web-std/fetch';
+import fetch from '@remix-run/web-fetch';
 import chai from 'chai';
 
 const {expect} = chai;

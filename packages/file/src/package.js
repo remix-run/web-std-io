@@ -1,1 +1,1 @@
-export { Blob } from "@web-std/blob"
+export { Blob } from "@remix-run/web-blob";

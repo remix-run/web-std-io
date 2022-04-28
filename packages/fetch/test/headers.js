@@ -1,5 +1,5 @@
 import util from 'util';
-import {Headers} from '@web-std/fetch';
+import {Headers} from '@remix-run/web-fetch';
 import chai from 'chai';
 import chaiIterator from 'chai-iterator';
 
