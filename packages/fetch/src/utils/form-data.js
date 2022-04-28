@@ -92,10 +92,10 @@ export const toFormData = async (source) => {
   const contentType = headers?.get('Content-Type') || ''
 
   if (contentType.startsWith('application/x-www-form-urlencoded') && body != null) {
-	const form = new FormData();
-	let bodyText = await source.text();
-	new URLSearchParams(bodyText).forEach((v, k) => form.append(k, v));
-	return form;
+		const form = new FormData();
+		let bodyText = await source.text();
+		new URLSearchParams(bodyText).forEach((v, k) => form.append(k, v));
+		return form;
   }
 
   const [type, boundary] = contentType.split(/\s*;\s*boundary=/)
