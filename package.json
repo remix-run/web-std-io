@@ -10,8 +10,8 @@
   ],
   "scripts": {
     "changeset": "changeset",
-    "release": "pnpm run prerelease && changeset publish",
-    "version": "changeset version",
+    "release": "changeset publish",
+    "version-bump": "changeset version",
     "postinstall": "manypkg fix",
     "prepare": "yarn prepare:blob && yarn prepare:file && yarn prepare:form-data && yarn prepare:fetch",
     "prepare:blob": "yarn --cwd packages/blob prepare",

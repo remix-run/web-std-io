@@ -1,6 +1,9 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.0.0/schema.json",
-  "changelog": "@changesets/cli/changelog",
+  "changelog": [
+    "@changesets/cli/changelog",
+    { "repo": "remix-run/web-std-io" }
+  ],
   "commit": false,
   "fixed": [],
   "linked": [],
