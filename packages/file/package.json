@@ -1,6 +1,6 @@
 {
   "name": "@remix-run/web-file",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Web API compatible File implementation for node",
   "files": [
     "src",
@@ -29,7 +29,7 @@
   },
   "types": "./dist/src/lib.d.ts",
   "dependencies": {
-    "@remix-run/web-blob": "^3.0.4"
+    "@remix-run/web-blob": "^3.0.5"
   },
   "author": "Irakli Gozalishvili <dev@gozala.io> (https://gozala.io)",
   "repository": "https://github.com/remix-run/web-std-io",
