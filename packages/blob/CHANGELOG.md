@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- 8ee5f00: Very minor changes to test out changesets
+- 8ee5f00: Very minor changes to test out changesets (testing change in PR)
 
 ### [3.0.4](https://www.github.com/web-std/io/compare/blob-v3.0.3...blob-v3.0.4) (2022-02-24)
 
