@@ -11,9 +11,10 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 env:
   CI: true
 jobs:
-  name: release
-    if: github.repository == 'remix-run/web-std-io'
-  runs-on: ubuntu-latest
+  release:
+    name: release
+    if: ${{ github.repository == 'remix-run/web-std-io' }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
