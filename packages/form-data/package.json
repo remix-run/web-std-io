@@ -33,10 +33,10 @@
   "repository": "https://github.com/remix-run/web-std-io",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "15.0.2",
     "@remix-run/web-blob": "^3.0.4",
     "@remix-run/web-fetch": "^4.1.1",
     "@remix-run/web-file": "^3.0.2",
+    "@types/node": "15.0.2",
     "git-validate": "2.2.4",
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
