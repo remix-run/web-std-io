@@ -3,10 +3,6 @@ on:
   push:
     branches:
       - main
-      # temporary for testing. No release should be triggered until a PR is
-      # merged, so just don't merge any PRs until this workflow is merged into
-      # main :)
-      - chance/deploy
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 env:
   CI: true
