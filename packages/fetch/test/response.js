@@ -220,6 +220,21 @@ describe('Response', () => {
 		const res = new Response();
 		expect(res.url).to.equal('');
 	});
+
+	it('should support json static method', () => {
+		const res = Response.json({a: 1});
+		return res.json().then(result => {
+			expect(result.a).to.equal(1);
+		});
+	})
+
+	it('should support json static method with added responseInit', () => {
+		const res = Response.json({a: 1}, { headers: { "x-foo": "bar" } });
+		expect(res.headers.get('x-foo')).to.equal('bar');
+		return res.json().then(result => {
+			expect(result.a).to.equal(1);
+		});
+	})
 });
 
 const streamFromString = text => new ReadableStream({
