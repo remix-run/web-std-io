@@ -12,13 +12,13 @@ const INTERNALS = Symbol('Response internals');
 
 /**
  * Response class
- * 
+ *
  * @typedef {Object} Ext
  * @property {number} [size]
  * @property {string} [url]
  * @property {number} [counter]
  * @property {number} [highWaterMark]
- * 
+ *
  * @implements {globalThis.Response}
  */
 export default class Response extends Body {
@@ -123,6 +123,23 @@ export default class Response extends Body {
 				location: new URL(url).toString()
 			},
 			status
+		});
+	}
+
+	/**
+	 * @param {any} data The URL that the new response is to originate from.
+	 * @param {ResponseInit} [responseInit] An optional status code for the response (e.g., 302.)
+	 * @returns {Response} A Response object.
+	 */
+	static json(data, responseInit = {}) {
+		let headers = new Headers(responseInit.headers);
+		if (!headers.has("Content-Type")) {
+			headers.set("Content-Type", "application/json; charset=utf-8");
+		}
+
+		return new Response(JSON.stringify(data), {
+			...responseInit,
+			headers,
 		});
 	}
 
