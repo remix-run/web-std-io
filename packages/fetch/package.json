@@ -9,9 +9,9 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./dist/src/lib.node.d.ts",
       "require": "./dist/lib.node.cjs",
       "import": "./src/lib.node.js",
-      "types": "./dist/src/lib.node.d.ts",
       "browser": "./src/lib.js"
     },
     "./package.json": "./package.json",
