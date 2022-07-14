@@ -1,6 +1,6 @@
 {
   "name": "@remix-run/web-form-data",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Web API compatible Form Data implementation",
   "files": [
     "src",
@@ -34,7 +34,7 @@
   "license": "MIT",
   "devDependencies": {
     "@remix-run/web-blob": "^3.0.4",
-    "@remix-run/web-fetch": "^4.1.1",
+    "@remix-run/web-fetch": "^4.2.0",
     "@remix-run/web-file": "^3.0.2",
     "@types/node": "15.0.2",
     "git-validate": "2.2.4",

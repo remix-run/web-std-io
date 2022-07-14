@@ -1,6 +1,6 @@
 {
   "name": "@remix-run/web-fetch",
-  "version": "4.1.1",
+  "version": "4.2.0",
   "description": "Web API compatible fetch implementation",
   "main": "./dist/lib.node.cjs",
   "module": "./src/lib.node.js",
@@ -98,7 +98,7 @@
   },
   "dependencies": {
     "@remix-run/web-blob": "^3.0.4",
-    "@remix-run/web-form-data": "^3.0.2",
+    "@remix-run/web-form-data": "^3.0.3",
     "@remix-run/web-stream": "^1.0.3",
     "@web3-storage/multipart-parser": "^1.0.0",
     "data-uri-to-buffer": "^3.0.1",
