@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.3.0
+
+### Minor Changes
+
+- 6d9cd44: expose RequestExtraOptions to fetch & add HTTPs.agent to types
+
+### Patch Changes
+
+- 908263e: allow clone of request and responses will null body
+
 ## 4.2.0
 
 ### Minor Changes
