@@ -33,7 +33,7 @@ const supportedSchemas = new Set(['data:', 'http:', 'https:', 'file:']);
  * Fetch function
  *
  * @param   {string | URL | import('./request.js').default} url - Absolute url or Request instance
- * @param   {RequestInit} [options_] - Fetch options
+ * @param   {RequestInit & import('./request.js').RequestExtraOptions} [options_] - Fetch options
  * @return  {Promise<import('./response.js').default>}
  */
 async function fetch(url, options_ = {}) {
