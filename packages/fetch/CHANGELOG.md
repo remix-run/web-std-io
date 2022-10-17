@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.3.1
+
+### Patch Changes
+
+- eb54144: Make Request signal handling follow spec: https://fetch.spec.whatwg.org/#ref-for-map-exists%E2%91%A0%E2%91%A3
+
 ## 4.3.0
 
 ### Minor Changes
