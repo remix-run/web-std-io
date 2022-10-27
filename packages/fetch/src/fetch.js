@@ -346,6 +346,7 @@ function fixResponseChunkedTransferBadEnding(request, errorCallback) {
 			}
 		};
 
+        /** @param {Buffer} buf */
 		const onData = buf => {
 			properLastChunkReceived = Buffer.compare(buf.slice(-5), LAST_CHUNK) === 0;
 
