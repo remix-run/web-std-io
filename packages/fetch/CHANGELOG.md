@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.3.2
+
+### Patch Changes
+
+- 3b9b384: Memory leak caused by unregistered listeners. Solution was copied from a node-fetch pr.
+- a85373d: Add support for custom "credentials" value. Nothing is done with them at the moment but they pass through for the consumer of the request to access if needed.
+
 ## 4.3.1
 
 ### Patch Changes
