@@ -261,7 +261,6 @@ export const test = (test) => {
   });
 
   test("Should allow passing a form element",  () => {
-
     class FakeForm {
       get [Symbol.toStringTag]() {
         return "HTMLFormElement";
