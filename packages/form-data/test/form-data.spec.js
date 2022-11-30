@@ -1,14 +1,13 @@
 import { FormData } from "@remix-run/web-form-data";
 import * as lib from "@remix-run/web-form-data";
 import { File, Blob } from "@remix-run/web-file";
-import { JSDOM } from 'jsdom';
 import { assert } from "./test.js";
 
 /**
  * @param {import('./test').Test} test
  */
 export const test = (test) => {
-  test("test baisc", async () => {
+  test("test basic", async () => {
     assert.equal(typeof FormData, "function");
     assert.isEqual(typeof lib.FormData, "function");
   });
@@ -261,38 +260,27 @@ export const test = (test) => {
     );
   });
 
-  test("Should allow passing a form element", () => {
-    test.before(() => {
-      const { window } = new JSDOM('<main></main>');
-      // @ts-ignore
-      global.window = window;
-      global.document = window.document;
-      global.navigator = window.navigator;
-      global.getComputedStyle = window.getComputedStyle;
-    })
+  test("Should allow passing a form element",  () => {
+    const form = document.createElement("form");
+    const insideInput = document.createElement("input");
+    const outsideInput = document.createElement("input");
 
-    test("pass a form element", () => {
-      const form = document.createElement("form");
-      const insideInput = document.createElement("input");
-      const outsideInput = document.createElement("input");
+    outsideInput.type = "text";
+    outsideInput.name = "form";
+    outsideInput.value = "outside";
+    outsideInput.setAttribute("form", "my-form");
 
-      outsideInput.type = "text";
-      outsideInput.name = "form";
-      outsideInput.value = "outside";
-      outsideInput.setAttribute("form", "my-form");
+    insideInput.type = "text";
+    insideInput.name = "form";
+    insideInput.value = "inside";
 
-      insideInput.type = "text";
-      insideInput.name = "form";
-      insideInput.value = "inside";
+    form.appendChild(insideInput);
+    form.id = "my-form";
 
-      form.appendChild(insideInput);
-      form.id = "my-form";
+    document.body.appendChild(form);
+    document.body.appendChild(outsideInput);
 
-      document.body.appendChild(form);
-      document.body.appendChild(outsideInput);
-
-      const formData = new FormData(form);
-      assert.equal(formData.getAll("form"), ["inside", "outside"]);
-    })
+    const formData = new FormData(form);
+    assert.equal(formData.getAll("form"), ["inside", "outside"]);
   })
 };
