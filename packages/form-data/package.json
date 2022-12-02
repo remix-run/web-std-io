@@ -1,6 +1,6 @@
 {
   "name": "@remix-run/web-form-data",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Web API compatible Form Data implementation",
   "files": [
     "src",

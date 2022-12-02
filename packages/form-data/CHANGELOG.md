@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.4
+
+### Patch Changes
+
+- c4a9738: allow passing a form to FormData. implementation taken from https://github.com/tchak/remix-router-turbo/blob/main/test/setup-test-env.ts, thank you @tchak
+
 ## 3.0.3
 
 ### Patch Changes
