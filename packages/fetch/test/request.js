@@ -338,6 +338,7 @@ describe('Request', () => {
 		ogFormData.append('a', 1);
 		ogFormData.append('b', 2);
 		ogFormData.append('file', new File(['content'], 'file.txt'));
+		ogFormData.append('empty-file', new File([], '', { type: 'application/octet-stream' }));
 
 		const request = new Request(base, {
 			method: 'POST',
@@ -357,6 +358,13 @@ describe('Request', () => {
 			expect(file.size).to.equal(7);
 			expect(await file.text()).to.equal("content");
 			expect(file.lastModified).to.be.a('number');
+			const emptyFile = clonedFormData.get('empty-file');
+			if (typeof emptyFile !== "object") {
+				throw new Error("empty-file is not an object");
+			}
+			expect(file.name).to.equal("");
+			expect(file.type).to.equal("application/octet-stream");
+			expect(file.size).to.equal(0);
 		});
 	});
 
