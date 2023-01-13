@@ -362,9 +362,9 @@ describe('Request', () => {
 			if (typeof emptyFile !== "object") {
 				throw new Error("empty-file is not an object");
 			}
-			expect(file.name).to.equal("");
-			expect(file.type).to.equal("application/octet-stream");
-			expect(file.size).to.equal(0);
+			expect(emptyFile.name).to.equal("");
+			expect(emptyFile.type).to.equal("application/octet-stream");
+			expect(emptyFile.size).to.equal(0);
 		});
 	});
 
