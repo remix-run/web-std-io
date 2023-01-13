@@ -104,7 +104,7 @@ export const toFormData = async (source) => {
     const form = new FormData()
     const parts = iterateMultipart(body, boundary)
     for await (const { name, data, filename, contentType } of parts) {
-      if (filename) {
+      if (typeof filename !== 'undefined') {
         form.append(name, new File([data], filename, { type: contentType }))
       } else {
         form.append(name, new TextDecoder().decode(data), filename)
