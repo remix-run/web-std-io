@@ -338,7 +338,10 @@ describe('Request', () => {
 		ogFormData.append('a', 1);
 		ogFormData.append('b', 2);
 		ogFormData.append('file', new File(['content'], 'file.txt'));
-		ogFormData.append('empty-file', new File([], '', { type: 'application/octet-stream' }));
+
+		// This is what happens when you construct the form data set with an empty file input:
+		// https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#constructing-the-form-data-set
+		ogFormData.append('empty-input-file', new File([], '', { type: 'application/octet-stream' }));
 
 		const request = new Request(base, {
 			method: 'POST',
@@ -358,13 +361,13 @@ describe('Request', () => {
 			expect(file.size).to.equal(7);
 			expect(await file.text()).to.equal("content");
 			expect(file.lastModified).to.be.a('number');
-			const emptyFile = clonedFormData.get('empty-file');
-			if (typeof emptyFile !== "object") {
-				throw new Error("empty-file is not an object");
+			const emptyInputFile = clonedFormData.get('empty-input-file');
+			if (typeof emptyInputFile !== "object") {
+				throw new Error("emptyInputFile is not an object");
 			}
-			expect(emptyFile.name).to.equal("");
-			expect(emptyFile.type).to.equal("application/octet-stream");
-			expect(emptyFile.size).to.equal(0);
+			expect(emptyInputFile.name).to.equal("");
+			expect(emptyInputFile.type).to.equal("application/octet-stream");
+			expect(emptyInputFile.size).to.equal(0);
 		});
 	});
 
