@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- 1bbaad9: Align with [spec](https://fetch.spec.whatwg.org/#methods) for `new Request()` `method` normalization
+- Align with [spec](https://fetch.spec.whatwg.org/#methods) for `new Request()` `method` normalization ([#30](https://github.com/remix-run/web-std-io/pull/30))
 
   - Only `DELETE`, `GET`, `HEAD`, `OPTIONS`, `POST`, `PUT` get automatically uppercased
   - Note that `method: "patch"` will no longer be automatically uppercased
