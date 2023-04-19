@@ -1,13 +1,13 @@
 // Test tools
-import zlib from 'zlib';
-import crypto from 'crypto';
-import http from 'http';
-import fs from 'fs';
-import stream from 'stream';
-import path from 'path';
-import {lookup} from 'dns';
-import vm from 'vm';
-import {TextEncoder} from 'util';
+import zlib from 'node:zlib';
+import crypto from 'node:crypto';
+import http from 'node:http';
+import fs from 'node:fs';
+import stream from 'node:stream';
+import path from 'node:path';
+import {lookup} from 'node:dns';
+import vm from 'node:vm';
+import {TextEncoder} from 'node:util';
 import chai from 'chai';
 import chaiPromised from 'chai-as-promised';
 import chaiIterator from 'chai-iterator';
@@ -72,12 +72,12 @@ describe('node-fetch', () => {
 	const local = new TestServer();
 	let base;
 
-	before(async () => {
+	beforeEach(async () => {
 		await local.start();
 		base = `http://${local.hostname}:${local.port}/`;
 	});
 
-	after(async () => {
+	afterEach(async () => {
 		return local.stop();
 	});
 
@@ -1601,7 +1601,7 @@ describe('node-fetch', () => {
 		const parameters = new URLSearchParams();
 		parameters.append('key', 'value');
 		const request = new Request(base, {
-			method: 'POST', 
+			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
