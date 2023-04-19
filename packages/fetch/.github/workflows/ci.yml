@@ -29,19 +29,19 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Get Node.JS version from package.json
         if: matrix.node == 'engines'
         id: get-version
         run: echo ::set-output name=node::$(npx --q minimum-node-version)
 
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v3
         if: matrix.node != 'engines'
         with:
           node-version: ${{ matrix.node }}
 
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v3-beta
         if: matrix.node == 'engines'
         with:
           node-version: ${{steps.get-version.outputs.node}}

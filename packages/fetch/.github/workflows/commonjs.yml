@@ -15,13 +15,13 @@ jobs:
   commonjs-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Get Node.JS version from package.json
         id: get-version
         run: echo ::set-output name=node::$(npx --q minimum-node-version)
 
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{steps.get-version.outputs.node}}
 
