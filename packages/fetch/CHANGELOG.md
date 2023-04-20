@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.3.4
+
+### Patch Changes
+
+- 7f91c87: fixes "ERR_INVALID_THIS" on Node 20
+
 ## 4.3.3
 
 ### Patch Changes
