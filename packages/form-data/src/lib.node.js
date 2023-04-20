@@ -1,6 +1,6 @@
 // @ts-check
-"use strict"
+"use strict";
 
-import * as polyfill from "./form-data.js"
+import * as polyfill from "./form-data.js";
 
-export const FormData = polyfill.FormData
+export const FormData = polyfill.FormData;

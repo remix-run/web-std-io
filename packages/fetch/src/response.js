@@ -4,21 +4,21 @@
  * Response class provides content decoding
  */
 
-import Headers from './headers.js';
-import Body, {clone, extractContentType} from './body.js';
-import {isRedirect} from './utils/is-redirect.js';
+import Headers from "./headers.js";
+import Body, { clone, extractContentType } from "./body.js";
+import { isRedirect } from "./utils/is-redirect.js";
 
-const INTERNALS = Symbol('Response internals');
+const INTERNALS = Symbol("Response internals");
 
 /**
  * Response class
- * 
+ *
  * @typedef {Object} Ext
  * @property {number} [size]
  * @property {string} [url]
  * @property {number} [counter]
  * @property {number} [highWaterMark]
- * 
+ *
  * @implements {globalThis.Response}
  */
 export default class Response extends Body {
@@ -32,23 +32,23 @@ export default class Response extends Body {
 		const status = options.status || 200;
 		const headers = new Headers(options.headers);
 
-		if (body !== null && !headers.has('Content-Type')) {
+		if (body !== null && !headers.has("Content-Type")) {
 			const contentType = extractContentType(this);
 			if (contentType) {
-				headers.append('Content-Type', contentType);
+				headers.append("Content-Type", contentType);
 			}
 		}
 
 		/**
 		 * @private
-		*/
+		 */
 		this[INTERNALS] = {
 			url: options.url,
 			status,
-			statusText: options.statusText || '',
+			statusText: options.statusText || "",
 			headers,
 			counter: options.counter || 0,
-			highWaterMark: options.highWaterMark
+			highWaterMark: options.highWaterMark,
 		};
 	}
 
@@ -56,11 +56,11 @@ export default class Response extends Body {
 	 * @type {ResponseType}
 	 */
 	get type() {
-		return "default"
+		return "default";
 	}
 
 	get url() {
-		return this[INTERNALS].url || '';
+		return this[INTERNALS].url || "";
 	}
 
 	get status() {
@@ -104,7 +104,7 @@ export default class Response extends Body {
 			status: this.status,
 			statusText: this.statusText,
 			headers: this.headers,
-			size: this.size
+			size: this.size,
 		});
 	}
 
@@ -115,29 +115,30 @@ export default class Response extends Body {
 	 */
 	static redirect(url, status = 302) {
 		if (!isRedirect(status)) {
-			throw new RangeError('Failed to execute "redirect" on "response": Invalid status code');
+			throw new RangeError(
+				'Failed to execute "redirect" on "response": Invalid status code'
+			);
 		}
 
 		return new Response(null, {
 			headers: {
-				location: new URL(url).toString()
+				location: new URL(url).toString(),
 			},
-			status
+			status,
 		});
 	}
 
 	get [Symbol.toStringTag]() {
-		return 'Response';
+		return "Response";
 	}
 }
 
 Object.defineProperties(Response.prototype, {
-	url: {enumerable: true},
-	status: {enumerable: true},
-	ok: {enumerable: true},
-	redirected: {enumerable: true},
-	statusText: {enumerable: true},
-	headers: {enumerable: true},
-	clone: {enumerable: true}
+	url: { enumerable: true },
+	status: { enumerable: true },
+	ok: { enumerable: true },
+	redirected: { enumerable: true },
+	statusText: { enumerable: true },
+	headers: { enumerable: true },
+	clone: { enumerable: true },
 });
-

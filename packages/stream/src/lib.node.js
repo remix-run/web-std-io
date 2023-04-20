@@ -1,5 +1,5 @@
 // @ts-ignore
-import streams from "./stream.cjs"
+import streams from "./stream.cjs";
 export const {
   ReadableStream,
   ReadableStreamDefaultReader,
@@ -16,4 +16,4 @@ export const {
   CountQueuingStrategy,
   TextEncoderStream,
   TextDecoderStream,
-} = streams
+} = streams;

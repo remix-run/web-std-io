@@ -1,5 +1,4 @@
-Changelog
-=========
+# Changelog
 
 # 3.x release
 
@@ -98,7 +97,6 @@ Changelog
 - Other: simplify Travis CI build matrix.
 - Other: dev dependency update.
 - Other: readme update.
-
 
 # 2.x release
 
@@ -223,7 +221,6 @@ This is a major release. Check [our upgrade guide](https://github.com/node-fetch
 
 - Enhance: more comprehensive API docs
 - Enhance: add a list of default headers in README
-
 
 # 1.x release
 
@@ -360,7 +357,6 @@ See [changelog on 1.x branch](https://github.com/node-fetch/node-fetch/blob/1.x/
 ## v1.0.0
 
 - Enhance: better test coverage and doc
-
 
 # 0.x release
 

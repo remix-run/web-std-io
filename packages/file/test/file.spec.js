@@ -5,7 +5,7 @@ import { assert } from "./test.js";
 /**
  * @param {import('./test').Test} test
  */
-export const test = test => {
+export const test = (test) => {
   test("test baisc", async () => {
     assert.isEqual(typeof lib.Blob, "function");
     assert.isEqual(typeof lib.File, "function");
@@ -25,9 +25,9 @@ export const test = test => {
     assert.throws(() => new File([]), TypeError);
 
     const before = Date.now();
-    await new Promise(resolve => setTimeout(resolve, 3));
+    await new Promise((resolve) => setTimeout(resolve, 3));
     const file = new File(["test"], "name");
-    await new Promise(resolve => setTimeout(resolve, 3));
+    await new Promise((resolve) => setTimeout(resolve, 3));
     const after = Date.now();
     assert.equal(file.size, 4);
     assert.equal(file.name, "name");
@@ -63,7 +63,7 @@ export const test = test => {
   test("File with type", async () => {
     const file = new File(["test"], "name", {
       lastModified: 1594672000418,
-      type: "text/plain"
+      type: "text/plain",
     });
 
     assert.equal(file.size, 4);
@@ -74,7 +74,7 @@ export const test = test => {
 
   test("File type is normalized", async () => {
     const file = new File(["test"], "name", {
-      type: "Text/Plain"
+      type: "Text/Plain",
     });
 
     assert.equal(file.size, 4);

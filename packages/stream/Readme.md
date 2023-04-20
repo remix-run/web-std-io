@@ -15,7 +15,7 @@ import {
   ReadableStream,
   WritableStream,
   TransformStream,
-} from "@remix-run/web-stream"
+} from "@remix-run/web-stream";
 ```
 
 ### Usage from Typescript

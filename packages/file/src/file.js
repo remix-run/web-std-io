@@ -1,4 +1,4 @@
-import { Blob } from "./package.js"
+import { Blob } from "./package.js";
 
 /**
  * @implements {globalThis.File}
@@ -16,15 +16,15 @@ export class File extends Blob {
     name = panic(new TypeError("File constructor requires name argument")),
     options = {}
   ) {
-    super(init, options)
+    super(init, options);
     // Per File API spec https://w3c.github.io/FileAPI/#file-constructor
     // Every "/" character of file name must be replaced with a ":".
     /** @private */
-    this._name = name
+    this._name = name;
     // It appears that browser do not follow the spec here.
     // String(name).replace(/\//g, ":")
     /** @private */
-    this._lastModified = options.lastModified || Date.now()
+    this._lastModified = options.lastModified || Date.now();
   }
 
   /**
@@ -32,7 +32,7 @@ export class File extends Blob {
    * @type {string}
    */
   get name() {
-    return this._name
+    return this._name;
   }
 
   /**
@@ -40,7 +40,7 @@ export class File extends Blob {
    * @type {string}
    */
   get webkitRelativePath() {
-    return ""
+    return "";
   }
 
   /**
@@ -49,11 +49,11 @@ export class File extends Blob {
    * @returns {number}
    */
   get lastModified() {
-    return this._lastModified
+    return this._lastModified;
   }
 
   get [Symbol.toStringTag]() {
-    return "File"
+    return "File";
   }
 }
 
@@ -61,6 +61,6 @@ export class File extends Blob {
  * @param {*} error
  * @returns {never}
  */
-const panic = error => {
-  throw error
-}
+const panic = (error) => {
+  throw error;
+};

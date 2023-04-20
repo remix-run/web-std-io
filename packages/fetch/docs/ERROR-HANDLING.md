@@ -1,6 +1,4 @@
-
-Error handling with node-fetch
-==============================
+# Error handling with node-fetch
 
 Because `window.fetch` isn't designed to be transparent about the cause of request errors, we have to come up with our own solutions.
 
@@ -9,20 +7,20 @@ The basics:
 - A cancelled request is rejected with an [`AbortError`](https://github.com/node-fetch/node-fetch/blob/master/README.md#class-aborterror). You can check if the reason for rejection was that the request was aborted by checking the `Error`'s `name` is `AbortError`.
 
 ```js
-const fetch = require('node-fetch');
+const fetch = require("node-fetch");
 
 (async () => {
 	try {
-		await fetch(url, {signal});
+		await fetch(url, { signal });
 	} catch (error) {
-		if (error.name === 'AbortError') {
-			console.log('request was aborted');
+		if (error.name === "AbortError") {
+			console.log("request was aborted");
 		}
 	}
 })();
 ```
 
-- All [operational errors][joyent-guide] *other than aborted requests* are rejected with a [FetchError](https://github.com/node-fetch/node-fetch/blob/master/README.md#class-fetcherror). You can handle them all through the `try/catch` block or promise `catch` clause.
+- All [operational errors][joyent-guide] _other than aborted requests_ are rejected with a [FetchError](https://github.com/node-fetch/node-fetch/blob/master/README.md#class-fetcherror). You can handle them all through the `try/catch` block or promise `catch` clause.
 
 - All errors come with an `error.message` detailing the cause of errors.
 

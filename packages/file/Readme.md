@@ -9,10 +9,10 @@ Web API compatible [File][] for nodejs.
 ### Usage
 
 ```js
-import { File, Blob } from "@remix-run/web-file"
-const file = new File(["hello", new TextEncoder().encode("world")], "hello")
+import { File, Blob } from "@remix-run/web-file";
+const file = new File(["hello", new TextEncoder().encode("world")], "hello");
 for await (const chunk of blob.stream()) {
-  console.log(chunk)
+  console.log(chunk);
 }
 ```
 

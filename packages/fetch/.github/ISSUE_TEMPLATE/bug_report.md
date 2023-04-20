@@ -10,10 +10,10 @@ labels: bug
 
 Steps to reproduce the behavior:
 
-1. 
-2. 
-3. 
-4. 
+1.
+2.
+3.
+4.
 
 **Expected behavior**
 
@@ -28,8 +28,8 @@ Steps to reproduce the behavior:
 
 <!--- Include as many relevant details about the environment you experienced the bug in -->
 
-| software         | version
-| ---------------- | -------
+| software         | version |
+| ---------------- | ------- |
 | node-fetch       |
 | node             |
 | npm              |

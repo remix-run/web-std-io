@@ -6,11 +6,6 @@
       "@remix-run/web-blob": ["packages/blob/src/lib.js"]
     }
   },
-  "include": [
-    "src",
-    "test"
-  ],
-  "references": [
-    { "path": "../fetch"}
-  ]
+  "include": ["src", "test"],
+  "references": [{ "path": "../fetch" }]
 }

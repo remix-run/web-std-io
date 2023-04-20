@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
 export class FetchBaseError extends Error {
 	/**
-	 * @param {string} message 
-	 * @param {string} type 
+	 * @param {string} message
+	 * @param {string} type
 	 */
 	constructor(message, type) {
 		super(message);
@@ -21,4 +21,3 @@ export class FetchBaseError extends Error {
 		return this.constructor.name;
 	}
 }
-

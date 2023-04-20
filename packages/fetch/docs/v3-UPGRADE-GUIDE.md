@@ -28,20 +28,20 @@ Since Node.js will deprecate version 8 at the end of 2019, we decided that node-
 Since this was never part of the fetch specification, it was removed. AbortSignal offers a more finegrained control of request timeouts, and is standardized in the Fetch spec. For convenience, you can use [timeout-signal](https://github.com/Richienb/timeout-signal) as a workaround:
 
 ```js
-const timeoutSignal = require('timeout-signal');
-const fetch = require('node-fetch');
+const timeoutSignal = require("timeout-signal");
+const fetch = require("node-fetch");
 
-const {AbortError} = fetch
- 
-fetch('https://www.google.com', { signal: timeoutSignal(5000) })
-    .then(response => {
-        // Handle response
-    })
-    .catch(error => {
-        if (error instanceof AbortError) {
-            // Handle timeout
-        }
-    })
+const { AbortError } = fetch;
+
+fetch("https://www.google.com", { signal: timeoutSignal(5000) })
+	.then((response) => {
+		// Handle response
+	})
+	.catch((error) => {
+		if (error instanceof AbortError) {
+			// Handle timeout
+		}
+	});
 ```
 
 ## `Response.statusText` no longer sets a default message derived from the HTTP status code
@@ -57,10 +57,10 @@ Prior to v3.x, we included a `browser` field in the package.json file. Since nod
 If you want charset encoding detection, please use the [fetch-charset-detection] package ([documentation][fetch-charset-detection-docs]).
 
 ```js
-const fetch = require('node-fetch');
-const convertBody = require('fetch-charset-detection');
+const fetch = require("node-fetch");
+const convertBody = require("fetch-charset-detection");
 
-fetch('https://somewebsite.com').then(res => {
+fetch("https://somewebsite.com").then((res) => {
 	const text = convertBody(res.buffer(), res.headers);
 });
 ```
@@ -70,9 +70,9 @@ fetch('https://somewebsite.com').then(res => {
 When attempting to parse invalid json via `res.json()`, a `SyntaxError` will now be thrown instead of a `FetchError` to align better with the spec.
 
 ```js
-const fetch = require('node-fetch');
+const fetch = require("node-fetch");
 
-fetch('https://somewebsitereturninginvalidjson.com').then(res => res.json())
+fetch("https://somewebsitereturninginvalidjson.com").then((res) => res.json());
 // Throws 'Uncaught SyntaxError: Unexpected end of JSON input' or similar.
 ```
 
@@ -122,7 +122,7 @@ Since v3.x you no longer need to install `@types/node-fetch` package in order to
 
 [whatwg-fetch]: https://fetch.spec.whatwg.org/
 [data-url]: https://fetch.spec.whatwg.org/#data-url-processor
-[LTS plan]: https://github.com/nodejs/LTS#lts-plan
+[lts plan]: https://github.com/nodejs/LTS#lts-plan
 [cross-fetch]: https://github.com/lquixada/cross-fetch
 [fetch-charset-detection]: https://github.com/Richienb/fetch-charset-detection
 [fetch-charset-detection-docs]: https://richienb.github.io/fetch-charset-detection/globals.html#convertbody

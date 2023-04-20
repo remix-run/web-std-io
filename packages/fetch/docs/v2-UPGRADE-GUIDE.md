@@ -102,7 +102,7 @@ those release branches in 2016. Check out Node.js' official [LTS plan] for more
 information on Node.js' support lifetime.
 
 [whatwg-fetch]: https://fetch.spec.whatwg.org/
-[LTS plan]: https://github.com/nodejs/LTS#lts-plan
+[lts plan]: https://github.com/nodejs/LTS#lts-plan
 [gh-fetch]: https://github.com/github/fetch
 [chrome-headers]: https://crbug.com/645492
 [firefox-headers]: https://bugzilla.mozilla.org/show_bug.cgi?id=1278275

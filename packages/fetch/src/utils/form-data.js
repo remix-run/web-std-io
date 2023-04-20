@@ -1,16 +1,17 @@
-import {randomBytes} from 'crypto';
-import { iterateMultipart } from '@web3-storage/multipart-parser';
-import { FormData } from '../package.js';
-import {isBlob} from './is.js';
+import { randomBytes } from "crypto";
+import { iterateMultipart } from "@web3-storage/multipart-parser";
+import { FormData } from "../package.js";
+import { isBlob } from "./is.js";
 
-const carriage = '\r\n';
-const dashes = '-'.repeat(2);
+const carriage = "\r\n";
+const dashes = "-".repeat(2);
 const carriageLength = Buffer.byteLength(carriage);
 
 /**
  * @param {string} boundary
  */
-const getFooter = boundary => `${dashes}${boundary}${dashes}${carriage.repeat(2)}`;
+const getFooter = (boundary) =>
+	`${dashes}${boundary}${dashes}${carriage.repeat(2)}`;
 
 /**
  * @param {string} boundary
@@ -20,15 +21,17 @@ const getFooter = boundary => `${dashes}${boundary}${dashes}${carriage.repeat(2)
  * @return {string}
  */
 function getHeader(boundary, name, field) {
-	let header = '';
+	let header = "";
 
 	header += `${dashes}${boundary}${carriage}`;
 	header += `Content-Disposition: form-data; name="${name}"`;
 
 	if (isBlob(field)) {
-		const { name = 'blob', type } = /** @type {Blob & {name?:string}} */ (field);
+		const { name = "blob", type } = /** @type {Blob & {name?:string}} */ (
+			field
+		);
 		header += `; filename="${name}"${carriage}`;
-		header += `Content-Type: ${type || 'application/octet-stream'}`;
+		header += `Content-Type: ${type || "application/octet-stream"}`;
 	}
 
 	return `${header}${carriage.repeat(2)}`;
@@ -37,20 +40,20 @@ function getHeader(boundary, name, field) {
 /**
  * @return {string}
  */
-export const getBoundary = () => randomBytes(8).toString('hex');
+export const getBoundary = () => randomBytes(8).toString("hex");
 
 /**
  * @param {FormData} form
  * @param {string} boundary
  */
-export async function * formDataIterator(form, boundary) {
+export async function* formDataIterator(form, boundary) {
 	const encoder = new TextEncoder();
 	for (const [name, value] of form) {
 		yield encoder.encode(getHeader(boundary, name, value));
 
 		if (isBlob(value)) {
 			// @ts-ignore - we know our streams implement aysnc iteration
-			yield * value.stream();
+			yield* value.stream();
 		} else {
 			yield encoder.encode(value);
 		}
@@ -89,29 +92,32 @@ export function getFormDataLength(form, boundary) {
  * @param {Body & {headers?:Headers}} source
  */
 export const toFormData = async (source) => {
-  let { body, headers } = source;
-  const contentType = headers?.get('Content-Type') || ''
+	let { body, headers } = source;
+	const contentType = headers?.get("Content-Type") || "";
 
-  if (contentType.startsWith('application/x-www-form-urlencoded') && body != null) {
+	if (
+		contentType.startsWith("application/x-www-form-urlencoded") &&
+		body != null
+	) {
 		const form = new FormData();
 		let bodyText = await source.text();
 		new URLSearchParams(bodyText).forEach((v, k) => form.append(k, v));
 		return form;
-  }
+	}
 
-  const [type, boundary] = contentType.split(/\s*;\s*boundary=/)
-  if (type === 'multipart/form-data' && boundary != null && body != null) {
-    const form = new FormData()
-    const parts = iterateMultipart(body, boundary)
-    for await (const { name, data, filename, contentType } of parts) {
-      if (filename) {
-        form.append(name, new File([data], filename, { type: contentType }))
-      } else {
-        form.append(name, new TextDecoder().decode(data), filename)
-      }
-    }
-    return form
-  } else {
-    throw new TypeError('Could not parse content as FormData.')
-  }
-}
+	const [type, boundary] = contentType.split(/\s*;\s*boundary=/);
+	if (type === "multipart/form-data" && boundary != null && body != null) {
+		const form = new FormData();
+		const parts = iterateMultipart(body, boundary);
+		for await (const { name, data, filename, contentType } of parts) {
+			if (filename) {
+				form.append(name, new File([data], filename, { type: contentType }));
+			} else {
+				form.append(name, new TextDecoder().decode(data), filename);
+			}
+		}
+		return form;
+	} else {
+		throw new TypeError("Could not parse content as FormData.");
+	}
+};

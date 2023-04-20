@@ -18,6 +18,7 @@ Please read and follow the instructions before submitting an issue:
 <!--- Provide a ode snippet to illustrate your question. -->
 
 ```js
+
 ```
 
 **Expected behavior, if applicable**
@@ -28,8 +29,8 @@ A clear and concise description of what you expected to happen.
 
 <!--- Include as many relevant details about the environment you experienced the bug in -->
 
-| software         | version
-| ---------------- | -------
+| software         | version |
+| ---------------- | ------- |
 | node-fetch       |
 | node             |
 | npm              |

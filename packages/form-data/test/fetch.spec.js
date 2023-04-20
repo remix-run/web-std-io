@@ -6,7 +6,7 @@ import { assert } from "./test.js";
 /**
  * @param {import('./test').Test} test
  */
-export const test = test => {
+export const test = (test) => {
   test("node-fetch recognizes form-data", async () => {
     const data = new FormData();
     data.set("file", new Blob(["hello"]));
