@@ -35,10 +35,10 @@ to do with [node-fetch][].
 ### Usage
 
 ```js
-import { Blob } from "@remix-run/web-blob"
-const blob = new Blob(["hello", new TextEncoder().encode("world")])
+import { Blob } from "@remix-run/web-blob";
+const blob = new Blob(["hello", new TextEncoder().encode("world")]);
 for await (const chunk of blob.stream()) {
-  console.log(chunk)
+  console.log(chunk);
 }
 ```
 

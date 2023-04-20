@@ -1,14 +1,13 @@
+import { TextEncoder } from "util";
+import chai from "chai";
+import { Blob } from "@remix-run/web-blob";
+import { Response } from "@remix-run/web-fetch";
+import TestServer from "./utils/server.js";
+import { ReadableStream } from "../src/package.js";
 
-import {TextEncoder} from 'util';
-import chai from 'chai';
-import {Blob} from '@remix-run/web-blob';
-import {Response} from '@remix-run/web-fetch';
-import TestServer from './utils/server.js';
-import { ReadableStream } from '../src/package.js';
+const { expect } = chai;
 
-const {expect} = chai;
-
-describe('Response', () => {
+describe("Response", () => {
 	const local = new TestServer();
 	let base;
 
@@ -21,7 +20,7 @@ describe('Response', () => {
 		return local.stop();
 	});
 
-	it('should have attributes conforming to Web IDL', () => {
+	it("should have attributes conforming to Web IDL", () => {
 		const res = new Response();
 		const enumerableProperties = [];
 		for (const property in res) {
@@ -29,202 +28,203 @@ describe('Response', () => {
 		}
 
 		for (const toCheck of [
-			'body',
-			'bodyUsed',
-			'arrayBuffer',
-			'blob',
-			'json',
-			'text',
-			'url',
-			'status',
-			'ok',
-			'redirected',
-			'statusText',
-			'headers',
-			'clone'
+			"body",
+			"bodyUsed",
+			"arrayBuffer",
+			"blob",
+			"json",
+			"text",
+			"url",
+			"status",
+			"ok",
+			"redirected",
+			"statusText",
+			"headers",
+			"clone",
 		]) {
 			expect(enumerableProperties).to.contain(toCheck);
 		}
 
 		for (const toCheck of [
-			'body',
-			'bodyUsed',
-			'url',
-			'status',
-			'ok',
-			'redirected',
-			'statusText',
-			'headers'
+			"body",
+			"bodyUsed",
+			"url",
+			"status",
+			"ok",
+			"redirected",
+			"statusText",
+			"headers",
 		]) {
 			expect(() => {
-				res[toCheck] = 'abc';
+				res[toCheck] = "abc";
 			}).to.throw();
 		}
 	});
 
-	it('should support empty options', () => {
-		const res = new Response(streamFromString('a=1'));
-		return res.text().then(result => {
-			expect(result).to.equal('a=1');
+	it("should support empty options", () => {
+		const res = new Response(streamFromString("a=1"));
+		return res.text().then((result) => {
+			expect(result).to.equal("a=1");
 		});
 	});
 
-	it('should support parsing headers', () => {
+	it("should support parsing headers", () => {
 		const res = new Response(null, {
 			headers: {
-				a: '1'
-			}
+				a: "1",
+			},
 		});
-		expect(res.headers.get('a')).to.equal('1');
+		expect(res.headers.get("a")).to.equal("1");
 	});
 
-	it('should support text() method', () => {
-		const res = new Response('a=1');
-		return res.text().then(result => {
-			expect(result).to.equal('a=1');
+	it("should support text() method", () => {
+		const res = new Response("a=1");
+		return res.text().then((result) => {
+			expect(result).to.equal("a=1");
 		});
 	});
 
-	it('should support json() method', () => {
+	it("should support json() method", () => {
 		const res = new Response('{"a":1}');
-		return res.json().then(result => {
+		return res.json().then((result) => {
 			expect(result.a).to.equal(1);
 		});
 	});
 
-	it('should support blob() method', () => {
-		const res = new Response('a=1', {
-			method: 'POST',
+	it("should support blob() method", () => {
+		const res = new Response("a=1", {
+			method: "POST",
 			headers: {
-				'Content-Type': 'text/plain'
-			}
+				"Content-Type": "text/plain",
+			},
 		});
-		return res.blob().then(result => {
+		return res.blob().then((result) => {
 			expect(result).to.be.an.instanceOf(Blob);
 			expect(result.size).to.equal(3);
-			expect(result.type).to.equal('text/plain');
+			expect(result.type).to.equal("text/plain");
 		});
 	});
 
-	it('should support clone() method', () => {
-		const body = streamFromString('a=1');
+	it("should support clone() method", () => {
+		const body = streamFromString("a=1");
 		const res = new Response(body, {
 			headers: {
-				a: '1'
+				a: "1",
 			},
 			url: base,
 			status: 346,
-			statusText: 'production'
+			statusText: "production",
 		});
 		const cl = res.clone();
-		expect(cl.headers.get('a')).to.equal('1');
+		expect(cl.headers.get("a")).to.equal("1");
 		expect(cl.url).to.equal(base);
 		expect(cl.status).to.equal(346);
-		expect(cl.statusText).to.equal('production');
+		expect(cl.statusText).to.equal("production");
 		expect(cl.ok).to.be.false;
 		// Clone body shouldn't be the same body
 		expect(cl.body).to.not.equal(body);
-		return cl.text().then(result => {
-			expect(result).to.equal('a=1');
+		return cl.text().then((result) => {
+			expect(result).to.equal("a=1");
 		});
 	});
 
-	it('should support clone() method with null body', () => {
+	it("should support clone() method with null body", () => {
 		const res = new Response(null, {
 			headers: {
-				a: '1'
+				a: "1",
 			},
 			url: base,
 			status: 346,
-			statusText: 'production'
+			statusText: "production",
 		});
 		const cl = res.clone();
-		expect(cl.headers.get('a')).to.equal('1');
+		expect(cl.headers.get("a")).to.equal("1");
 		expect(cl.url).to.equal(base);
 		expect(cl.status).to.equal(346);
-		expect(cl.statusText).to.equal('production');
+		expect(cl.statusText).to.equal("production");
 		expect(cl.ok).to.be.false;
 		// Clone body should also be null
 		expect(cl.body).to.equal(null);
-		return cl.text().then(result => {
-			expect(result).to.equal('');
+		return cl.text().then((result) => {
+			expect(result).to.equal("");
 		});
 	});
 
-	it('should support stream as body', () => {
-		const body = streamFromString('a=1');
+	it("should support stream as body", () => {
+		const body = streamFromString("a=1");
 		const res = new Response(body);
-		return res.text().then(result => {
-			expect(result).to.equal('a=1');
+		return res.text().then((result) => {
+			expect(result).to.equal("a=1");
 		});
 	});
 
-	it('should support string as body', () => {
-		const res = new Response('a=1');
-		return res.text().then(result => {
-			expect(result).to.equal('a=1');
+	it("should support string as body", () => {
+		const res = new Response("a=1");
+		return res.text().then((result) => {
+			expect(result).to.equal("a=1");
 		});
 	});
 
-	it('should support buffer as body', () => {
-		const res = new Response(Buffer.from('a=1'));
-		return res.text().then(result => {
-			expect(result).to.equal('a=1');
+	it("should support buffer as body", () => {
+		const res = new Response(Buffer.from("a=1"));
+		return res.text().then((result) => {
+			expect(result).to.equal("a=1");
 		});
 	});
 
-	it('should support ArrayBuffer as body', () => {
+	it("should support ArrayBuffer as body", () => {
 		const encoder = new TextEncoder();
-		const res = new Response(encoder.encode('a=1'));
-		return res.text().then(result => {
-			expect(result).to.equal('a=1');
+		const res = new Response(encoder.encode("a=1"));
+		return res.text().then((result) => {
+			expect(result).to.equal("a=1");
 		});
 	});
 
-	it('should support blob as body', () => {
-		const res = new Response(new Blob(['a=1']));
-		return res.text().then(result => {
-			expect(result).to.equal('a=1');
+	it("should support blob as body", () => {
+		const res = new Response(new Blob(["a=1"]));
+		return res.text().then((result) => {
+			expect(result).to.equal("a=1");
 		});
 	});
 
-	it('should support Uint8Array as body', () => {
+	it("should support Uint8Array as body", () => {
 		const encoder = new TextEncoder();
-		const res = new Response(encoder.encode('a=1'));
-		return res.text().then(result => {
-			expect(result).to.equal('a=1');
+		const res = new Response(encoder.encode("a=1"));
+		return res.text().then((result) => {
+			expect(result).to.equal("a=1");
 		});
 	});
 
-	it('should support DataView as body', () => {
+	it("should support DataView as body", () => {
 		const encoder = new TextEncoder();
-		const res = new Response(new DataView(encoder.encode('a=1').buffer));
-		return res.text().then(result => {
-			expect(result).to.equal('a=1');
+		const res = new Response(new DataView(encoder.encode("a=1").buffer));
+		return res.text().then((result) => {
+			expect(result).to.equal("a=1");
 		});
 	});
 
-	it('should default to null as body', () => {
+	it("should default to null as body", () => {
 		const res = new Response();
 		expect(res.body).to.equal(null);
 
-		return res.text().then(result => expect(result).to.equal(''));
+		return res.text().then((result) => expect(result).to.equal(""));
 	});
 
-	it('should default to 200 as status code', () => {
+	it("should default to 200 as status code", () => {
 		const res = new Response(null);
 		expect(res.status).to.equal(200);
 	});
 
-	it('should default to empty string as url', () => {
+	it("should default to empty string as url", () => {
 		const res = new Response();
-		expect(res.url).to.equal('');
+		expect(res.url).to.equal("");
 	});
 });
 
-const streamFromString = text => new ReadableStream({
-	start(controller) {
-		controller.enqueue(Buffer.from(text));
-		controller.close();
-	}
-});
+const streamFromString = (text) =>
+	new ReadableStream({
+		start(controller) {
+			controller.enqueue(Buffer.from(text));
+			controller.close();
+		},
+	});

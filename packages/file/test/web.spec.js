@@ -1,5 +1,5 @@
-import { test as fileTest } from "./file.spec.js"
-import { test } from "./test.js"
+import { test as fileTest } from "./file.spec.js";
+import { test } from "./test.js";
 
-fileTest(test)
-test.run()
+fileTest(test);
+test.run();

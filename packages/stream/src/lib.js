@@ -17,4 +17,4 @@ export const {
   CountQueuingStrategy,
   TextEncoderStream,
   TextDecoderStream,
-} = globalThis
+} = globalThis;

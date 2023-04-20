@@ -1,8 +1,6 @@
+# Known differences
 
-Known differences
-=================
-
-*As of 2.x release*
+_As of 2.x release_
 
 - Topics such as Cross-Origin, Content Security Policy, Mixed Content, Service Workers are ignored, given our server-side context.
 
@@ -26,7 +24,7 @@ Known differences
 
 - If you are using `res.clone()` and writing an isomorphic app, note that stream on Node.js have a smaller internal buffer size (16Kb, aka `highWaterMark`) from client-side browsers (>1Mb, not consistent across browsers).
 
-- Because Node.js stream doesn't expose a [*disturbed*](https://fetch.spec.whatwg.org/#concept-readablestream-disturbed) property like Stream spec, using a consumed stream for `new Response(body)` will not set `bodyUsed` flag correctly.
+- Because Node.js stream doesn't expose a [_disturbed_](https://fetch.spec.whatwg.org/#concept-readablestream-disturbed) property like Stream spec, using a consumed stream for `new Response(body)` will not set `bodyUsed` flag correctly.
 
 [readable-stream]: https://nodejs.org/api/stream.html#stream_readable_streams
-[ERROR-HANDLING.md]: https://github.com/node-fetch/node-fetch/blob/master/docs/ERROR-HANDLING.md
+[error-handling.md]: https://github.com/node-fetch/node-fetch/blob/master/docs/ERROR-HANDLING.md

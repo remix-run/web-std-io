@@ -1,4 +1,3 @@
-
 /**
  * Request.js
  *
@@ -7,17 +6,24 @@
  * All spec algorithm step numbers are based on https://fetch.spec.whatwg.org/commit-snapshots/ae716822cb3a61843226cd090eefc6589446c1d2/.
  */
 
-import {format as formatUrl} from 'url';
-import {AbortController as AbortControllerPolyfill} from 'abort-controller';
-import Headers from './headers.js';
-import Body, {clone, extractContentType, getTotalBytes} from './body.js';
-import {isAbortSignal} from './utils/is.js';
-import {getSearch} from './utils/get-search.js';
+import { format as formatUrl } from "url";
+import { AbortController as AbortControllerPolyfill } from "abort-controller";
+import Headers from "./headers.js";
+import Body, { clone, extractContentType, getTotalBytes } from "./body.js";
+import { isAbortSignal } from "./utils/is.js";
+import { getSearch } from "./utils/get-search.js";
 
-const INTERNALS = Symbol('Request internals');
+const INTERNALS = Symbol("Request internals");
 
 const forbiddenMethods = new Set(["CONNECT", "TRACE", "TRACK"]);
-const normalizedMethods = new Set(["DELETE", "GET", "HEAD", "OPTIONS", "POST", "PUT"]);
+const normalizedMethods = new Set([
+	"DELETE",
+	"GET",
+	"HEAD",
+	"OPTIONS",
+	"POST",
+	"PUT",
+]);
 
 /**
  * Check if `obj` is an instance of Request.
@@ -25,13 +31,9 @@ const normalizedMethods = new Set(["DELETE", "GET", "HEAD", "OPTIONS", "POST", "
  * @param  {any} object
  * @return {object is Request}
  */
-const isRequest = object => {
-	return (
-		typeof object === 'object' &&
-		typeof object[INTERNALS] === 'object'
-	);
+const isRequest = (object) => {
+	return typeof object === "object" && typeof object[INTERNALS] === "object";
 };
-
 
 /**
  * Request class
@@ -71,69 +73,70 @@ export default class Request extends Body {
 	constructor(info, init = {}) {
 		let parsedURL;
 		/** @type {RequestOptions & RequestExtraOptions} */
-		let settings
+		let settings;
 
 		// Normalize input and force URL to be encoded as UTF-8 (https://github.com/node-fetch/node-fetch/issues/245)
 		if (isRequest(info)) {
 			parsedURL = new URL(info.url);
-			settings = (info)
+			settings = info;
 		} else {
 			parsedURL = new URL(info);
 			settings = {};
 		}
 
-
-
 		// Normalize method: https://fetch.spec.whatwg.org/#methods
-		let method = init.method || settings.method || 'GET';
+		let method = init.method || settings.method || "GET";
 		if (forbiddenMethods.has(method.toUpperCase())) {
-			throw new TypeError(`Failed to construct 'Request': '${method}' HTTP method is unsupported.`)
+			throw new TypeError(
+				`Failed to construct 'Request': '${method}' HTTP method is unsupported.`
+			);
 		} else if (normalizedMethods.has(method.toUpperCase())) {
 			method = method.toUpperCase();
 		}
 
-		const inputBody = init.body != null
-			? init.body
-			: (isRequest(info) && info.body !== null)
-			? clone(info)
-			: null;
+		const inputBody =
+			init.body != null
+				? init.body
+				: isRequest(info) && info.body !== null
+				? clone(info)
+				: null;
 
 		// eslint-disable-next-line no-eq-null, eqeqeq
-		if (inputBody != null && (method === 'GET' || method === 'HEAD')) {
-			throw new TypeError('Request with GET/HEAD method cannot have body');
+		if (inputBody != null && (method === "GET" || method === "HEAD")) {
+			throw new TypeError("Request with GET/HEAD method cannot have body");
 		}
 
 		super(inputBody, {
-			size: init.size || settings.size || 0
+			size: init.size || settings.size || 0,
 		});
-		const input = settings
+		const input = settings;
 
-
-		const headers = /** @type {globalThis.Headers} */
+		const headers =
+			/** @type {globalThis.Headers} */
 			(new Headers(init.headers || input.headers || {}));
 
-		if (inputBody !== null && !headers.has('Content-Type')) {
+		if (inputBody !== null && !headers.has("Content-Type")) {
 			const contentType = extractContentType(this);
 			if (contentType) {
-				headers.append('Content-Type', contentType);
+				headers.append("Content-Type", contentType);
 			}
 		}
 
-		let signal = 'signal' in init
-			? init.signal
-			: isRequest(input)
-			? input.signal
-			: null;
+		let signal =
+			"signal" in init ? init.signal : isRequest(input) ? input.signal : null;
 
 		// eslint-disable-next-line no-eq-null, eqeqeq
 		if (signal != null && !isAbortSignal(signal)) {
-			throw new TypeError('Expected signal to be an instanceof AbortSignal or EventTarget');
+			throw new TypeError(
+				"Expected signal to be an instanceof AbortSignal or EventTarget"
+			);
 		}
 
 		if (!signal) {
-			let AbortControllerConstructor = typeof AbortController != "undefined"
-			? AbortController
-			: AbortControllerPolyfill;
+			let AbortControllerConstructor =
+				typeof AbortController != "undefined"
+					? AbortController
+					: AbortControllerPolyfill;
 			/** @type {any} */
 			let newSignal = new AbortControllerConstructor().signal;
 			signal = newSignal;
@@ -142,21 +145,31 @@ export default class Request extends Body {
 		/** @type {RequestState} */
 		this[INTERNALS] = {
 			method,
-			redirect: init.redirect || input.redirect || 'follow',
+			redirect: init.redirect || input.redirect || "follow",
 			headers,
-			credentials: init.credentials || 'same-origin',
+			credentials: init.credentials || "same-origin",
 			parsedURL,
-			signal: signal || null
+			signal: signal || null,
 		};
 
 		/** @type {boolean} */
-		this.keepalive
+		this.keepalive;
 
 		// Node-fetch-only options
 		/** @type {number} */
-		this.follow = init.follow === undefined ? (input.follow === undefined ? 20 : input.follow) : init.follow;
+		this.follow =
+			init.follow === undefined
+				? input.follow === undefined
+					? 20
+					: input.follow
+				: init.follow;
 		/** @type {boolean} */
-		this.compress = init.compress === undefined ? (input.compress === undefined ? true : input.compress) : init.compress;
+		this.compress =
+			init.compress === undefined
+				? input.compress === undefined
+					? true
+					: input.compress
+				: init.compress;
 		/** @type {number} */
 		this.counter = init.counter || input.counter || 0;
 		/** @type {Agent|undefined} */
@@ -164,14 +177,15 @@ export default class Request extends Body {
 		/** @type {number} */
 		this.highWaterMark = init.highWaterMark || input.highWaterMark || 16384;
 		/** @type {boolean} */
-		this.insecureHTTPParser = init.insecureHTTPParser || input.insecureHTTPParser || false;
+		this.insecureHTTPParser =
+			init.insecureHTTPParser || input.insecureHTTPParser || false;
 	}
 
 	/**
 	 * @type {RequestCache}
 	 */
 	get cache() {
-		return "default"
+		return "default";
 	}
 
 	/**
@@ -179,33 +193,33 @@ export default class Request extends Body {
 	 */
 
 	get credentials() {
-		return this[INTERNALS].credentials
+		return this[INTERNALS].credentials;
 	}
 
 	/**
 	 * @type {RequestDestination}
 	 */
 	get destination() {
-		return ""
+		return "";
 	}
 
 	get integrity() {
-		return ""
+		return "";
 	}
 
 	/** @type {RequestMode} */
 	get mode() {
-		return "cors"
+		return "cors";
 	}
 
 	/** @type {string} */
 	get referrer() {
-		return  ""
+		return "";
 	}
 
 	/** @type {ReferrerPolicy} */
 	get referrerPolicy() {
-		return ""
+		return "";
 	}
 	get method() {
 		return this[INTERNALS].method;
@@ -247,17 +261,17 @@ export default class Request extends Body {
 	}
 
 	get [Symbol.toStringTag]() {
-		return 'Request';
+		return "Request";
 	}
 }
 
 Object.defineProperties(Request.prototype, {
-	method: {enumerable: true},
-	url: {enumerable: true},
-	headers: {enumerable: true},
-	redirect: {enumerable: true},
-	clone: {enumerable: true},
-	signal: {enumerable: true}
+	method: { enumerable: true },
+	url: { enumerable: true },
+	headers: { enumerable: true },
+	redirect: { enumerable: true },
+	clone: { enumerable: true },
+	signal: { enumerable: true },
 });
 
 /**
@@ -266,50 +280,50 @@ Object.defineProperties(Request.prototype, {
  *
  * @param {Request & Record<INTERNALS, RequestState>} request -  A Request instance
  */
-export const getNodeRequestOptions = request => {
-	const {parsedURL} = request[INTERNALS];
+export const getNodeRequestOptions = (request) => {
+	const { parsedURL } = request[INTERNALS];
 	const headers = new Headers(request[INTERNALS].headers);
 
 	// Fetch step 1.3
-	if (!headers.has('Accept')) {
-		headers.set('Accept', '*/*');
+	if (!headers.has("Accept")) {
+		headers.set("Accept", "*/*");
 	}
 
 	// HTTP-network-or-cache fetch steps 2.4-2.7
 	let contentLengthValue = null;
 	if (request.body === null && /^(post|put)$/i.test(request.method)) {
-		contentLengthValue = '0';
+		contentLengthValue = "0";
 	}
 
 	if (request.body !== null) {
 		const totalBytes = getTotalBytes(request);
 		// Set Content-Length if totalBytes is a number (that is not NaN)
-		if (typeof totalBytes === 'number' && !Number.isNaN(totalBytes)) {
+		if (typeof totalBytes === "number" && !Number.isNaN(totalBytes)) {
 			contentLengthValue = String(totalBytes);
 		}
 	}
 
 	if (contentLengthValue) {
-		headers.set('Content-Length', contentLengthValue);
+		headers.set("Content-Length", contentLengthValue);
 	}
 
 	// HTTP-network-or-cache fetch step 2.11
-	if (!headers.has('User-Agent')) {
-		headers.set('User-Agent', 'node-fetch');
+	if (!headers.has("User-Agent")) {
+		headers.set("User-Agent", "node-fetch");
 	}
 
 	// HTTP-network-or-cache fetch step 2.15
-	if (request.compress && !headers.has('Accept-Encoding')) {
-		headers.set('Accept-Encoding', 'gzip,deflate,br');
+	if (request.compress && !headers.has("Accept-Encoding")) {
+		headers.set("Accept-Encoding", "gzip,deflate,br");
 	}
 
-	let {agent} = request;
-	if (typeof agent === 'function') {
+	let { agent } = request;
+	if (typeof agent === "function") {
 		agent = agent(parsedURL);
 	}
 
-	if (!headers.has('Connection') && !agent) {
-		headers.set('Connection', 'close');
+	if (!headers.has("Connection") && !agent) {
+		headers.set("Connection", "close");
 	}
 
 	// HTTP-network fetch step 4.2
@@ -331,9 +345,9 @@ export const getNodeRequestOptions = request => {
 		href: parsedURL.href,
 		method: request.method,
 		// @ts-ignore - not sure what this supposed to do
-		headers: headers[Symbol.for('nodejs.util.inspect.custom')](),
+		headers: headers[Symbol.for("nodejs.util.inspect.custom")](),
 		insecureHTTPParser: request.insecureHTTPParser,
-		agent
+		agent,
 	};
 
 	return requestOptions;

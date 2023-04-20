@@ -1,1 +1,1 @@
-export const { FormData } = globalThis
+export const { FormData } = globalThis;

@@ -264,7 +264,7 @@ export const test = (test) => {
     /** @type {globalThis.HTMLFormElement} */
     let form;
 
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       /** @implements {globalThis.HTMLFormElement} */
       class FakeForm {
         get [Symbol.toStringTag]() {
@@ -294,28 +294,30 @@ export const test = (test) => {
               name: "remember-me",
               value: "on",
               checked: true,
-            }
-          ]
+            },
+          ];
         }
 
         get id() {
-          return "my-form"
+          return "my-form";
         }
       }
 
-      form = /** @type {globalThis.HTMLFormElement} */ (/** @type {unknown} */ (new FakeForm()))
+      form = /** @type {globalThis.HTMLFormElement} */ (
+        /** @type {unknown} */ (new FakeForm())
+      );
     } else {
-      form = document.createElement('form');
-      let inside = document.createElement('input')
-      let outside = document.createElement('input')
-      let checkbox = document.createElement('input')
+      form = document.createElement("form");
+      let inside = document.createElement("input");
+      let outside = document.createElement("input");
+      let checkbox = document.createElement("input");
 
-      form.id = 'my-form'
-      inside.name = 'inside'
-      outside.name = 'outside'
-      outside.setAttribute('form', 'my-form')
-      checkbox.name = "remember-me"
-      checkbox.type = 'checkbox'
+      form.id = "my-form";
+      inside.name = "inside";
+      outside.name = "outside";
+      outside.setAttribute("form", "my-form");
+      checkbox.name = "remember-me";
+      checkbox.type = "checkbox";
       checkbox.checked = true;
 
       form.appendChild(inside);
@@ -325,8 +327,8 @@ export const test = (test) => {
     }
 
     const formData = new FormData(form);
-    assert.equal(formData.has("inside"), true)
-    assert.equal(formData.has("outside"), true)
-    assert.equal(formData.get("remember-me"), "on")
-  })
+    assert.equal(formData.has("inside"), true);
+    assert.equal(formData.has("outside"), true);
+    assert.equal(formData.get("remember-me"), "on");
+  });
 };

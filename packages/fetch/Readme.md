@@ -13,15 +13,11 @@ The reason this fork exists is because [node-fetch][] chooses to compromise
 Web API compatibility and by using nodejs native [Readable][] stream. They way
 they put it is:
 
->
 > - Make conscious trade-off when following [WHATWG fetch spec][whatwg-fetch] and [stream spec](https://streams.spec.whatwg.org/) implementation details, document known differences.
 > - Use native Node streams for body, on both request and response.
->
 
 We found these incompatibility to be really problematic when sharing code
 across nodejs and browser rutimes. This library uses [@remix-run/web-stream][] instead.
-
-
 
 [ci.icon]: https://github.com/web-std/io/workflows/fetch/badge.svg
 [ci.url]: https://github.com/web-std/io/actions/workflows/fetch.yml
@@ -37,8 +33,8 @@ across nodejs and browser rutimes. This library uses [@remix-run/web-stream][] i
 [readablestream]: https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream
 [readable]: https://nodejs.org/api/stream.html#stream_readable_streams
 [w3c blob.stream]: https://w3c.github.io/FileAPI/#dom-blob-stream
-[@remix-run/web-stream]:https://github.com/web-std/io/tree/main/stream
-[Uint8Array]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array
-[node-fetch]:https://github.com/node-fetch/
-[fetch api]:https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+[@remix-run/web-stream]: https://github.com/web-std/io/tree/main/stream
+[uint8array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array
+[node-fetch]: https://github.com/node-fetch/
+[fetch api]: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
 [readable]: https://nodejs.org/api/stream.html#stream_readable_streams

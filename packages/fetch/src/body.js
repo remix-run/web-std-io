@@ -5,19 +5,30 @@
  * Body interface provides common methods for Request and Response
  */
 
-import Stream from 'stream';
-import {types} from 'util';
+import Stream from "stream";
+import { types } from "util";
 
-import {Blob, ReadableStream} from './package.js';
+import { Blob, ReadableStream } from "./package.js";
 
-import {FetchError} from './errors/fetch-error.js';
-import {FetchBaseError} from './errors/base.js';
-import {formDataIterator, getBoundary, getFormDataLength, toFormData} from './utils/form-data.js';
-import {isBlob, isURLSearchParameters, isFormData, isMultipartFormDataStream, isReadableStream} from './utils/is.js';
-import * as utf8 from './utils/utf8.js';
-const {readableHighWaterMark} = new Stream.Readable();
+import { FetchError } from "./errors/fetch-error.js";
+import { FetchBaseError } from "./errors/base.js";
+import {
+	formDataIterator,
+	getBoundary,
+	getFormDataLength,
+	toFormData,
+} from "./utils/form-data.js";
+import {
+	isBlob,
+	isURLSearchParameters,
+	isFormData,
+	isMultipartFormDataStream,
+	isReadableStream,
+} from "./utils/is.js";
+import * as utf8 from "./utils/utf8.js";
+const { readableHighWaterMark } = new Stream.Readable();
 
-const INTERNALS = Symbol('Body internals');
+const INTERNALS = Symbol("Body internals");
 
 /**
  * Body mixin
@@ -31,9 +42,7 @@ export default class Body {
 	 * @param {BodyInit|Stream|null} body
 	 * @param {{size?:number}} options
 	 */
-	constructor(body, {
-		size = 0
-	} = {}) {
+	constructor(body, { size = 0 } = {}) {
 		const state = {
 			/** @type {null|ReadableStream<Uint8Array>} */
 			body: null,
@@ -45,7 +54,7 @@ export default class Body {
 			boundary: null,
 			disturbed: false,
 			/** @type {null|Error} */
-			error: null
+			error: null,
 		};
 		/** @private */
 		this[INTERNALS] = state;
@@ -55,11 +64,11 @@ export default class Body {
 			state.body = null;
 			state.size = 0;
 		} else if (isURLSearchParameters(body)) {
-		// Body is a URLSearchParams
+			// Body is a URLSearchParams
 			const bytes = utf8.encode(body.toString());
 			state.body = fromBytes(bytes);
 			state.size = bytes.byteLength;
-			state.type = 'application/x-www-form-urlencoded;charset=UTF-8';
+			state.type = "application/x-www-form-urlencoded;charset=UTF-8";
 		} else if (isBlob(body)) {
 			// Body is blob
 			state.size = body.size;
@@ -76,7 +85,11 @@ export default class Body {
 			state.size = bytes.byteLength;
 		} else if (ArrayBuffer.isView(body)) {
 			// Body is ArrayBufferView
-			const bytes = new Uint8Array(body.buffer, body.byteOffset, body.byteLength);
+			const bytes = new Uint8Array(
+				body.buffer,
+				body.byteOffset,
+				body.byteLength
+			);
 			state.body = fromBytes(bytes);
 			state.size = bytes.byteLength;
 		} else if (isReadableStream(body)) {
@@ -98,7 +111,7 @@ export default class Body {
 			// None of the above
 			// coerce to string then buffer
 			const bytes = utf8.encode(String(body));
-			state.type = 'text/plain;charset=UTF-8';
+			state.type = "text/plain;charset=UTF-8";
 			state.size = bytes.byteLength;
 			state.body = fromBytes(bytes);
 		}
@@ -118,7 +131,9 @@ export default class Body {
 	/** @type {Headers} */
 	/* c8 ignore next 3 */
 	get headers() {
-		throw new TypeError(`'get headers' called on an object that does not implements interface.`)
+		throw new TypeError(
+			`'get headers' called on an object that does not implements interface.`
+		);
 	}
 
 	get body() {
@@ -135,7 +150,7 @@ export default class Body {
 	 * @return {Promise<ArrayBuffer>}
 	 */
 	async arrayBuffer() {
-		const {buffer, byteOffset, byteLength} = await consumeBody(this);
+		const { buffer, byteOffset, byteLength } = await consumeBody(this);
 		return buffer.slice(byteOffset, byteOffset + byteLength);
 	}
 
@@ -145,11 +160,14 @@ export default class Body {
 	 * @return Promise
 	 */
 	async blob() {
-		const ct = (this.headers && this.headers.get('content-type')) || (this[INTERNALS].body && this[INTERNALS].type) || '';
+		const ct =
+			(this.headers && this.headers.get("content-type")) ||
+			(this[INTERNALS].body && this[INTERNALS].type) ||
+			"";
 		const buf = await consumeBody(this);
 
 		return new Blob([buf], {
-			type: ct
+			type: ct,
 		});
 	}
 
@@ -176,19 +194,19 @@ export default class Body {
 	 * @returns {Promise<FormData>}
 	 */
 	async formData() {
-		return toFormData(this)
+		return toFormData(this);
 	}
 }
 
 // In browsers, all properties are enumerable.
 Object.defineProperties(Body.prototype, {
-	body: {enumerable: true},
-	bodyUsed: {enumerable: true},
-	arrayBuffer: {enumerable: true},
-	blob: {enumerable: true},
-	json: {enumerable: true},
-	text: {enumerable: true},
-	formData: {enumerable: true}
+	body: { enumerable: true },
+	bodyUsed: { enumerable: true },
+	arrayBuffer: { enumerable: true },
+	blob: { enumerable: true },
+	json: { enumerable: true },
+	text: { enumerable: true },
+	formData: { enumerable: true },
 });
 
 /**
@@ -211,7 +229,7 @@ async function consumeBody(data) {
 		throw state.error;
 	}
 
-	const {body} = state;
+	const { body } = state;
 
 	// Body is null
 	if (body === null) {
@@ -221,20 +239,22 @@ async function consumeBody(data) {
 	// Body is stream
 	// get ready to actually consume the body
 	/** @type {[Uint8Array|null, Uint8Array[], number]} */
-	const [buffer, chunks, limit] = data.size > 0 ?
-		[new Uint8Array(data.size), [], data.size] :
-		[null, [], Infinity];
+	const [buffer, chunks, limit] =
+		data.size > 0
+			? [new Uint8Array(data.size), [], data.size]
+			: [null, [], Infinity];
 	let offset = 0;
 
 	const source = streamIterator(body);
 	try {
 		for await (const chunk of source) {
-			const bytes = chunk instanceof Uint8Array ?
-				chunk :
-				Buffer.from(chunk);
+			const bytes = chunk instanceof Uint8Array ? chunk : Buffer.from(chunk);
 
 			if (offset + bytes.byteLength > limit) {
-				const error = new FetchError(`content size at ${data.url} over limit: ${limit}`, 'max-size');
+				const error = new FetchError(
+					`content size at ${data.url} over limit: ${limit}`,
+					"max-size"
+				);
 				source.throw(error);
 				throw error;
 			} else if (buffer) {
@@ -248,7 +268,10 @@ async function consumeBody(data) {
 
 		if (buffer) {
 			if (offset < buffer.byteLength) {
-				throw new FetchError(`Premature close of server response while trying to fetch ${data.url}`, 'premature-close');
+				throw new FetchError(
+					`Premature close of server response while trying to fetch ${data.url}`,
+					"premature-close"
+				);
 			} else {
 				return buffer;
 			}
@@ -258,13 +281,19 @@ async function consumeBody(data) {
 	} catch (error) {
 		if (error instanceof FetchBaseError) {
 			throw error;
-		// @ts-expect-error - we know it will have a name
-		} else if (error && error.name === 'AbortError') {
+			// @ts-expect-error - we know it will have a name
+		} else if (error && error.name === "AbortError") {
 			throw error;
 		} else {
-			const e = /** @type {import('./errors/fetch-error').SystemError} */(error)
+			const e = /** @type {import('./errors/fetch-error').SystemError} */ (
+				error
+			);
 			// Other errors, such as incorrect content-encoding
-			throw new FetchError(`Invalid response body while trying to fetch ${data.url}: ${e.message}`, 'system', e);
+			throw new FetchError(
+				`Invalid response body while trying to fetch ${data.url}: ${e.message}`,
+				"system",
+				e
+			);
 		}
 	}
 }
@@ -275,12 +304,12 @@ async function consumeBody(data) {
  * @param {Body} instance       Response or Request instance
  * @return {ReadableStream<Uint8Array> | null}
  */
-export const clone = instance => {
-	const {body} = instance;
+export const clone = (instance) => {
+	const { body } = instance;
 
 	// Don't allow cloning a used body
 	if (instance.bodyUsed) {
-		throw new Error('cannot clone body after it is used');
+		throw new Error("cannot clone body after it is used");
 	}
 
 	if (!body) {
@@ -302,7 +331,7 @@ export const clone = instance => {
  * @param {Body} source Any options.body input
  * @returns {string | null}
  */
-export const extractContentType = source => source[INTERNALS].type;
+export const extractContentType = (source) => source[INTERNALS].type;
 
 /**
  * The Fetch Standard treats this as if "total bytes" is a property on the body.
@@ -313,7 +342,7 @@ export const extractContentType = source => source[INTERNALS].type;
  * @param {Body} source - Body object from the Body instance.
  * @returns {number | null}
  */
-export const getTotalBytes = source => source[INTERNALS].size;
+export const getTotalBytes = (source) => source[INTERNALS].size;
 
 /**
  * Write a Body to a Node.js WritableStream (e.g. http.Request) object.
@@ -322,7 +351,7 @@ export const getTotalBytes = source => source[INTERNALS].size;
  * @param {Body} source - Body object from the Body instance.
  * @returns {void}
  */
-export const writeToStream = (dest, {body}) => {
+export const writeToStream = (dest, { body }) => {
 	if (body === null) {
 		// Body is null
 		dest.end();
@@ -365,7 +394,9 @@ class StreamIterableIterator {
 	 * @returns {Promise<IteratorResult<T, void>>}
 	 */
 	next() {
-		return /** @type {Promise<IteratorResult<T, void>>} */ (this.getReader().read());
+		return /** @type {Promise<IteratorResult<T, void>>} */ (
+			this.getReader().read()
+		);
 	}
 
 	/**
@@ -376,17 +407,17 @@ class StreamIterableIterator {
 			await this.reader.cancel();
 		}
 
-		return {done: true, value: undefined};
+		return { done: true, value: undefined };
 	}
 
 	/**
-	 * 
-	 * @param {any} error 
+	 *
+	 * @param {any} error
 	 * @returns {Promise<IteratorResult<T, void>>}
 	 */
 	async throw(error) {
 		await this.getReader().cancel(error);
-		return {done: true, value: undefined};
+		return { done: true, value: undefined };
 	}
 }
 
@@ -394,7 +425,7 @@ class StreamIterableIterator {
  * @template T
  * @param {ReadableStream<T>} stream
  */
-export const streamIterator = stream => new StreamIterableIterator(stream);
+export const streamIterator = (stream) => new StreamIterableIterator(stream);
 
 /**
  * @param {Uint8Array} buffer
@@ -415,18 +446,19 @@ const writeBytes = (buffer, chunks) => {
  * @returns {ReadableStream<Uint8Array>}
  */
 // @ts-ignore
-const fromBytes = bytes => new ReadableStream({
-	start(controller) {
-		controller.enqueue(bytes);
-		controller.close();
-	}
-});
+const fromBytes = (bytes) =>
+	new ReadableStream({
+		start(controller) {
+			controller.enqueue(bytes);
+			controller.close();
+		},
+	});
 
 /**
  * @param {AsyncIterable<Uint8Array>} content
  * @returns {ReadableStream<Uint8Array>}
  */
-export const fromAsyncIterable = content =>
+export const fromAsyncIterable = (content) =>
 	new ReadableStream(new AsyncIterablePump(content));
 
 /**
@@ -465,12 +497,12 @@ class AsyncIterablePump {
 	 */
 	cancel(reason) {
 		if (reason) {
-			if (typeof this.source.throw === 'function') {
+			if (typeof this.source.throw === "function") {
 				this.source.throw(reason);
-			} else if (typeof this.source.return === 'function') {
+			} else if (typeof this.source.return === "function") {
 				this.source.return();
 			}
-		} else if (typeof this.source.return === 'function') {
+		} else if (typeof this.source.return === "function") {
 			this.source.return();
 		}
 	}
@@ -480,7 +512,7 @@ class AsyncIterablePump {
  * @param {Stream & {readableHighWaterMark?:number}} source
  * @returns {ReadableStream<Uint8Array>}
  */
-export const fromStream = source => {
+export const fromStream = (source) => {
 	const pump = new StreamPump(source);
 	const stream = new ReadableStream(pump, pump);
 	return stream;
@@ -521,10 +553,10 @@ class StreamPump {
 	 */
 	start(controller) {
 		this.controller = controller;
-		this.stream.on('data', this.enqueue);
-		this.stream.once('error', this.error);
-		this.stream.once('end', this.close);
-		this.stream.once('close', this.close);
+		this.stream.on("data", this.enqueue);
+		this.stream.once("error", this.error);
+		this.stream.once("end", this.close);
+		this.stream.once("close", this.close);
 	}
 
 	pull() {
@@ -539,10 +571,10 @@ class StreamPump {
 			this.stream.destroy(reason);
 		}
 
-		this.stream.off('data', this.enqueue);
-		this.stream.off('error', this.error);
-		this.stream.off('end', this.close);
-		this.stream.off('close', this.close);
+		this.stream.off("data", this.enqueue);
+		this.stream.off("error", this.error);
+		this.stream.off("end", this.close);
+		this.stream.off("close", this.close);
 	}
 
 	/**
@@ -551,9 +583,7 @@ class StreamPump {
 	enqueue(chunk) {
 		if (this.controller) {
 			try {
-				const bytes = chunk instanceof Uint8Array ?
-					chunk :
-					Buffer.from(chunk);
+				const bytes = chunk instanceof Uint8Array ? chunk : Buffer.from(chunk);
 
 				const available = (this.controller.desiredSize || 0) - bytes.byteLength;
 				this.controller.enqueue(bytes);
@@ -561,7 +591,11 @@ class StreamPump {
 					this.pause();
 				}
 			} catch {
-				this.controller.error(new Error('Could not create Buffer, chunk must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object'));
+				this.controller.error(
+					new Error(
+						"Could not create Buffer, chunk must be of type string or an instance of Buffer, ArrayBuffer, or Array or an Array-like Object"
+					)
+				);
 				this.cancel();
 			}
 		}
@@ -587,7 +621,7 @@ class StreamPump {
 	}
 
 	/**
-	 * @param {Error} error 
+	 * @param {Error} error
 	 */
 	error(error) {
 		if (this.controller) {

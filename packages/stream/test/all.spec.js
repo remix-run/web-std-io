@@ -1,6 +1,6 @@
-import { test as libTest } from "./lib.spec.js"
+import { test as libTest } from "./lib.spec.js";
 
-import { test } from "./test.js"
+import { test } from "./test.js";
 
-libTest(test)
-test.run()
+libTest(test);
+test.run();

@@ -38,7 +38,6 @@
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
     "playwright-test": "^7.2.0",
-    "prettier": "^2.3.0",
     "rimraf": "3.0.2",
     "rollup": "2.47.0",
     "rollup-plugin-multi-input": "1.2.0",
@@ -54,13 +53,6 @@
     "test:es": "uvu test all.spec.js",
     "test:web": "playwright-test -r uvu test/web.spec.js",
     "test:cjs": "rimraf dist && npm run build && node dist/test/all.spec.cjs",
-    "test": "npm run test:es && npm run test:web && npm run test:cjs",
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier --no-semi --write",
-      "git add"
-    ]
+    "test": "npm run test:es && npm run test:web && npm run test:cjs"
   }
 }

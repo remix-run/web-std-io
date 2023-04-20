@@ -1,5 +1,4 @@
-
-import {FetchBaseError} from './base.js';
+import { FetchBaseError } from "./base.js";
 
 /**
  * @typedef {{
@@ -13,7 +12,7 @@ import {FetchBaseError} from './base.js';
  * port?: number
  * syscall: string
  * }} SystemError
-*/
+ */
 
 /**
  * FetchError interface for operational errors

@@ -1,4 +1,4 @@
-import multiInput from "rollup-plugin-multi-input"
+import multiInput from "rollup-plugin-multi-input";
 
 const config = [
   ["test", "dist/test"],
@@ -13,5 +13,5 @@ const config = [
     entryFileNames: "[name].cjs",
   },
   plugins: [multiInput({ relative: base })],
-}))
-export default config
+}));
+export default config;
