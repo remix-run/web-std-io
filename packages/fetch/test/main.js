@@ -2230,21 +2230,21 @@ describe('node-fetch', () => {
 		});
 	});
 
-	it('supports supplying a famliy option to the agent', () => {
+	it('supports supplying a family option to the agent', async () => {
 		const url = `${base}redirect/301`;
 		const families = [];
-		const family = Symbol('family');
+		const family = 6
 		function lookupSpy(hostname, options, callback) {
 			families.push(options.family);
-			return lookup(hostname, {}, callback);
+			return lookup(hostname, options, callback);
 		}
 
-		const agent = http.Agent({lookup: lookupSpy, family});
-		return fetch(url, {agent}).then(() => {
-			expect(families).to.have.length(2);
-			expect(families[0]).to.equal(family);
-			expect(families[1]).to.equal(family);
-		});
+		const agent = new http.Agent({lookup: lookupSpy, family});
+		let res = await fetch(url, {agent})
+		expect(families).to.have.length(2);
+		expect(families[0]).to.equal(family);
+		expect(families[1]).to.equal(family);
+		await res.arrayBuffer()
 	});
 
 	it('should allow a function supplying the agent', () => {
