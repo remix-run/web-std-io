@@ -1159,7 +1159,9 @@ describe("node-fetch", () => {
 						.and.have.property("name", "AbortError"),
 				]);
 
-				controller.abort();
+        setTimeout(() => {
+          controller.abort();
+        }, 10);
 
 				return result;
 			});
