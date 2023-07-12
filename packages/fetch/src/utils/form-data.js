@@ -109,7 +109,7 @@ export const toFormData = async (source) => {
       } else if (typeof filename !== 'undefined') {
         form.append(name, new File([], '', { type: contentType }))
       } else {
-	    form.append(name, new TextDecoder().decode(data), filename)
+        form.append(name, new TextDecoder().decode(data), filename)
       }
     }
     return form
