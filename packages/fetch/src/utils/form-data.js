@@ -89,29 +89,31 @@ export function getFormDataLength(form, boundary) {
  * @param {Body & {headers?:Headers}} source
  */
 export const toFormData = async (source) => {
-  let { body, headers } = source;
-  const contentType = headers?.get('Content-Type') || ''
+	let { body, headers } = source;
+	const contentType = headers?.get('Content-Type') || ''
 
-  if (contentType.startsWith('application/x-www-form-urlencoded') && body != null) {
+	if (contentType.startsWith('application/x-www-form-urlencoded') && body != null) {
 		const form = new FormData();
 		let bodyText = await source.text();
 		new URLSearchParams(bodyText).forEach((v, k) => form.append(k, v));
 		return form;
-  }
+	}
 
-  const [type, boundary] = contentType.split(/\s*;\s*boundary=/)
-  if (type === 'multipart/form-data' && boundary != null && body != null) {
-    const form = new FormData()
-    const parts = iterateMultipart(body, boundary)
-    for await (const { name, data, filename, contentType } of parts) {
-      if (typeof filename !== 'undefined') {
-        form.append(name, new File([data], filename, { type: contentType }))
-      } else {
-        form.append(name, new TextDecoder().decode(data), filename)
-      }
-    }
-    return form
-  } else {
-    throw new TypeError('Could not parse content as FormData.')
-  }
+	const [type, boundary] = contentType.split(/\s*;\s*boundary=/)
+	if (type === 'multipart/form-data' && boundary != null && body != null) {
+		const form = new FormData()
+		const parts = iterateMultipart(body, boundary)
+		for await (const { name, data, filename, contentType } of parts) {
+			if (typeof filename === 'string') {
+				form.append(name, new File([data], filename, { type: contentType }))
+			} else if (typeof filename !== 'undefined') {
+				form.append(name, new File([], '', { type: contentType }))
+			} else {
+				form.append(name, new TextDecoder().decode(data), filename)
+			}
+		}
+		return form
+	} else {
+		throw new TypeError('Could not parse content as FormData.')
+	}
 }
