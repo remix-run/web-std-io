@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.3.5
+
+### Patch Changes
+
+- cf9ee6f: Submitted empty file inputs are now correctly parsed out as empty `File` instances instead of being surfaced as an empty string via `request.formData()`
+
 ## 4.3.4
 
 ### Patch Changes
