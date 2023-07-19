@@ -97,6 +97,7 @@
   },
   "dependencies": {
     "@remix-run/web-blob": "^3.0.5",
+    "@web-std/file": "^3.0.2",
     "@remix-run/web-form-data": "^3.0.5",
     "@remix-run/web-stream": "^1.0.4",
     "@web3-storage/multipart-parser": "^1.0.0",
