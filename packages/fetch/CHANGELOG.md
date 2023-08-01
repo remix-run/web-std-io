@@ -1,5 +1,27 @@
 # Changelog
 
+## 4.3.5
+
+### Patch Changes
+
+- cf9ee6f: Submitted empty file inputs are now correctly parsed out as empty `File` instances instead of being surfaced as an empty string via `request.formData()`
+
+## 4.3.4
+
+### Patch Changes
+
+- 7f91c87: fixes "ERR_INVALID_THIS" on Node 20
+
+## 4.3.3
+
+### Patch Changes
+
+- Align with [spec](https://fetch.spec.whatwg.org/#methods) for `new Request()` `method` normalization ([#30](https://github.com/remix-run/web-std-io/pull/30))
+
+  - Only `DELETE`, `GET`, `HEAD`, `OPTIONS`, `POST`, `PUT` get automatically uppercased
+  - Note that `method: "patch"` will no longer be automatically uppercased
+  - Throw a `TypeError` for `CONNECT`, `TRACE`, and `TRACK`
+
 ## 4.3.2
 
 ### Patch Changes
