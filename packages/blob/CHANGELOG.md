@@ -8,25 +8,25 @@
 - Updated dependencies [43c6ce2]
   - @remix-run/web-stream@1.0.4
 
-### [3.0.4](https://www.github.com/web-std/io/compare/blob-v3.0.3...blob-v3.0.4) (2022-02-24)
+## [3.0.4](https://www.github.com/web-std/io/compare/blob-v3.0.3...blob-v3.0.4) (2022-02-24)
 
 ### Changes
 
 - disable node native blob ([#49](https://www.github.com/web-std/io/issues/49)) ([18e426e](https://www.github.com/web-std/io/commit/18e426e0552eb855275faadceab35c41335582f2))
 
-### [3.0.3](https://www.github.com/web-std/io/compare/blob-v3.0.2...blob-v3.0.3) (2022-01-21)
+## [3.0.3](https://www.github.com/web-std/io/compare/blob-v3.0.2...blob-v3.0.3) (2022-01-21)
 
 ### Changes
 
 - bump version ([91420e2](https://www.github.com/web-std/io/commit/91420e294b4188a6da9c961ce4ef4eeac93595a1))
 
-### [3.0.2](https://www.github.com/web-std/io/compare/blob-v3.0.1...blob-v3.0.2) (2022-01-19)
+## [3.0.2](https://www.github.com/web-std/io/compare/blob-v3.0.1...blob-v3.0.2) (2022-01-19)
 
 ### Bug Fixes
 
 - ship less files to address TSC issues ([#35](https://www.github.com/web-std/io/issues/35)) ([0651e62](https://www.github.com/web-std/io/commit/0651e62ae42d17eae2db89858c9e44f3342c304c))
 
-### [3.0.1](https://www.github.com/web-std/io/compare/blob-v3.0.0...blob-v3.0.1) (2021-11-08)
+## [3.0.1](https://www.github.com/web-std/io/compare/blob-v3.0.0...blob-v3.0.1) (2021-11-08)
 
 ### Changes
 

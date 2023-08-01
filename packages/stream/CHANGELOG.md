@@ -6,7 +6,7 @@
 
 - 43c6ce2: Move types conditional export to the top of the list to align with [the node guidance](https://nodejs.org/api/packages.html#community-conditions-definitions)
 
-### [1.0.2](https://www.github.com/web-std/io/compare/stream-v1.0.1...stream-v1.0.2) (2022-04-13)
+## [1.0.2](https://www.github.com/web-std/io/compare/stream-v1.0.1...stream-v1.0.2) (2022-04-13)
 
 ### Bug Fixes
 
@@ -14,7 +14,7 @@
 - **packages/stream:** no initializers in ambient contexts ([30ad037](https://www.github.com/web-std/io/commit/30ad0377a88ebffc3a998616e3b774ce5bcc584a))
 - typescript types ([#56](https://www.github.com/web-std/io/issues/56)) ([30ad037](https://www.github.com/web-std/io/commit/30ad0377a88ebffc3a998616e3b774ce5bcc584a))
 
-### [1.0.1](https://www.github.com/web-std/io/compare/stream-v1.0.0...stream-v1.0.1) (2022-01-19)
+## [1.0.1](https://www.github.com/web-std/io/compare/stream-v1.0.0...stream-v1.0.1) (2022-01-19)
 
 ### Bug Fixes
 
