@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.3.6
+
+### Patch Changes
+
+- 5d1e12a: Remove socket listeners if request is aborted
+- 43c6ce2: Move types conditional export to the top of the list to align with [the node guidance](https://nodejs.org/api/packages.html#community-conditions-definitions)
+- Updated dependencies [43c6ce2]
+  - @remix-run/web-blob@3.0.5
+  - @remix-run/web-form-data@3.0.5
+  - @remix-run/web-stream@1.0.4
+
 ## 4.3.5
 
 ### Patch Changes

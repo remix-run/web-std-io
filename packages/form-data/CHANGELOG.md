@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.5
+
+### Patch Changes
+
+- 43c6ce2: Move types conditional export to the top of the list to align with [the node guidance](https://nodejs.org/api/packages.html#community-conditions-definitions)
+
 ## 3.0.4
 
 ### Patch Changes
