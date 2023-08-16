@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.3.7
+
+### Patch Changes
+
+- Fix `headers.entries`/`values`/`forEach` iteration for `Set-Cookie` headers ([#39](https://github.com/remix-run/web-std-io/pull/39))
+- Import `Buffer` from `"buffer"` instead of relying on a global `Buffer` ([#40](https://github.com/remix-run/web-std-io/pull/40))
+
 ## 4.3.6
 
 ### Patch Changes
