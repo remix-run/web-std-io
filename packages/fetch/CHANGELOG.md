@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.3.7
+
+### Patch Changes
+
+- f6ac353: Fix `headers.entries`/`values`/`forEach` iteration for `Set-Cookie` headers
+- 68eadc6: Import Buffer from 'buffer'
+
 ## 4.3.6
 
 ### Patch Changes
