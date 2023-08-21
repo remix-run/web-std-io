@@ -7,14 +7,12 @@ import { assert } from "./test.js";
  */
 export const test = test => {
   test("test baisc", async () => {
-    assert.isEqual(typeof lib.Blob, "function");
     assert.isEqual(typeof lib.File, "function");
   });
 
   if (globalThis.window === globalThis) {
     test("uses built-ins", async () => {
       assert.isEqual(lib.File, globalThis.File);
-      assert.isEqual(lib.Blob, globalThis.Blob);
     });
   }
 

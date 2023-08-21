@@ -9,9 +9,6 @@
   "references": [
     {
       "path": "../file"
-    },
-    {
-      "path": "../blob"
     }
   ],
   "include": [

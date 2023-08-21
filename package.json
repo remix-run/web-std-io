@@ -2,28 +2,23 @@
   "name": "@remix-run/web-std-io",
   "private": true,
   "workspaces": [
-    "packages/blob",
     "packages/file",
     "packages/form-data",
-    "packages/fetch",
-    "packages/stream"
+    "packages/fetch"
   ],
   "scripts": {
     "changeset": "changeset",
     "release": "changeset publish",
     "version-bump": "changeset version",
     "postinstall": "manypkg fix",
-    "prepare": "yarn prepare:blob && yarn prepare:file && yarn prepare:form-data && yarn prepare:fetch",
-    "prepare:blob": "yarn --cwd packages/blob prepare",
+    "prepare": "yarn prepare:file && yarn prepare:form-data && yarn prepare:fetch",
     "prepare:file": "yarn --cwd packages/file prepare",
     "prepare:form-data": "yarn --cwd packages/form-data prepare",
     "prepare:fetch": "yarn --cwd packages/fetch prepare",
-    "test": "yarn test:stream && yarn test:blob && yarn test:file && yarn test:form-data && yarn test:fetch",
-    "test:blob": "yarn --cwd packages/blob test",
+    "test": "yarn test:file && yarn test:form-data && yarn test:fetch",
     "test:file": "yarn --cwd packages/file test",
     "test:form-data": "yarn --cwd packages/form-data test",
-    "test:fetch": "yarn --cwd packages/fetch test",
-    "test:stream": "yarn --cwd packages/stream test"
+    "test:fetch": "yarn --cwd packages/fetch test"
   },
   "dependencies": {
     "@changesets/changelog-github": "0.4.4",
