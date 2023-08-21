@@ -23,10 +23,10 @@ import {AbortError} from './errors/abort-error.js';
 import {isRedirect} from './utils/is-redirect.js';
 import {pipeline as pump, PassThrough} from 'stream';
 import * as Stream from 'stream';
-import { ReadableStream, Blob, FormData  } from './package.js';
+import { FormData } from './package.js';
 
 
-export {Headers, Request, Response, ReadableStream, Blob, FormData};
+export {Headers, Request, Response, FormData};
 
 const supportedSchemas = new Set(['data:', 'http:', 'https:', 'file:']);
 
