@@ -1,5 +1,3 @@
-import { Blob } from "./package.js"
-
 /**
  * @implements {globalThis.File}
  */

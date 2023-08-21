@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 16
+          - 18
         project:
           - form-data
     steps:
@@ -46,8 +46,6 @@ jobs:
       fail-fast: false
       matrix:
         node-version:
-          - 14
-          - 16
           - 18
           - 20
         os:

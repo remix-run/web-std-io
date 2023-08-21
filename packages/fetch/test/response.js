@@ -1,10 +1,8 @@
 
 import {TextEncoder} from 'util';
 import chai from 'chai';
-import {Blob} from '@remix-run/web-blob';
 import {Response} from '@remix-run/web-fetch';
 import TestServer from './utils/server.js';
-import { ReadableStream } from '../src/package.js';
 
 const {expect} = chai;
 
