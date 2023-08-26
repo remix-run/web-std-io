@@ -1,7 +1,7 @@
 import {randomBytes} from 'crypto';
+import { File } from "@remix-run/web-file";
 import { iterateMultipart } from '@web3-storage/multipart-parser';
 import { FormData } from '../package.js';
-import { File } from '@web-std/file';
 import { isBlob } from './is.js';
 
 const carriage = '\r\n';

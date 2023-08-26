@@ -21,7 +21,7 @@ import { ReadableStream } from "../src/package.js";
 const AbortControllerPolyfill = abortControllerPolyfill.AbortController;
 
 // Test subjects
-import { Blob } from "@remix-run/web-blob";
+import { Blob } from "@remix-run/web-file";
 
 import fetch, { Headers, Request, Response } from "@remix-run/web-fetch";
 import { FetchError } from "../src/errors/fetch-error.js";
