@@ -47,7 +47,7 @@
     "uvu": "0.5.2"
   },
   "scripts": {
-    "typecheck": "tsc --build",
+    "typecheck": "tsc",
     "test:es": "uvu test all.spec.js",
     "test:web": "playwright-test -r uvu test/web.spec.js",
     "test:cjs": "node test/node.spec.cjs",

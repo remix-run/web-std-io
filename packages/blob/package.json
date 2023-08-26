@@ -46,7 +46,7 @@
     "uvu": "0.5.2"
   },
   "scripts": {
-    "check": "tsc --build",
+    "typecheck": "tsc",
     "build": "npm run build:cjs && npm run build:types",
     "build:cjs": "rollup --config rollup.config.js",
     "build:types": "tsc --build",

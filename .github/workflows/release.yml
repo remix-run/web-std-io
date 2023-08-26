@@ -1,29 +1,36 @@
-name: release
+name: 🦋 Changesets Release
+
 on:
   push:
     branches:
       - main
+
 concurrency: ${{ github.workflow }}-${{ github.ref }}
-env:
-  CI: true
+
 jobs:
   release:
-    name: release
+    name: 🦋 Changesets Release
+
     if: ${{ github.repository == 'remix-run/web-std-io' }}
+
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Setup Node
+
+      - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
+          cache: yarn
           node-version: 16
-          cache: 'yarn'
-      - name: Install
-        run: yarn install --frozen-lockfile
-      - name: Auth
+
+      - name: 📥 Install deps
+        run: yarn --frozen-lockfile
+
+      - name: 🔐 Setup npm auth
         run: |
           echo "registry=https://registry.npmjs.org" >> ~/.npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
@@ -33,7 +40,7 @@ jobs:
         # to `main` with the related changes for the new version. After the PR
         # is merged, the workflow will run again and this action will publish to
         # npm.
-      - name: PR / Publish
+      - name: 🚀 PR / Publish
         id: changesets
         uses: changesets/action@v1
         with:
