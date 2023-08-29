@@ -1,0 +1,74 @@
+name: Validate
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  typecheck:
+    name: ʦ TypeScript (${{ matrix.project }})
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        project: [blob, fetch, file, form-data, stream]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: 16
+
+      - name: 📥 Install deps
+        run: yarn --frozen-lockfile
+
+      - name: 🔎 Type check
+        run: yarn typecheck
+        working-directory: packages/${{matrix.project}}
+
+  test:
+    name: 🧪 Test (${{ matrix.project }} / ${{ matrix.os }} / node@${{ matrix.node }})
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        node: [14, 16, 18, 20]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        project: [blob, fetch, file, form-data, stream]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: ${{ matrix.node }}
+
+      - name: 📥 Install deps
+        run: yarn --frozen-lockfile
+
+      - name: 🧪 Test (CJS)
+        run: yarn test:cjs
+        working-directory: packages/${{matrix.project}}
+
+      - name: 🧪 Test (ES)
+        run: yarn test:es
+        working-directory: packages/${{matrix.project}}
+
+      - name: 🧪 Test (Web)
+        run: npm run test:web --if-present
+        working-directory: packages/${{matrix.project}}
