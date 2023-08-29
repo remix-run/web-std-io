@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.3.8
+
+### Patch Changes
+
+- 8ea9e6c: fetch called on non Window object
+
 ## 4.3.7
 
 ### Patch Changes
