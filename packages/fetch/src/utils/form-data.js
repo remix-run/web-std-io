@@ -1,5 +1,4 @@
 import {randomBytes} from 'crypto';
-import { File } from "@remix-run/web-file";
 import { iterateMultipart } from '@web3-storage/multipart-parser';
 import { FormData, File } from '../package.js';
 import { isBlob } from './is.js';
