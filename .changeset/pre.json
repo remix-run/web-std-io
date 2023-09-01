@@ -1,0 +1,12 @@
+{
+  "mode": "pre",
+  "tag": "pre",
+  "initialVersions": {
+    "@remix-run/web-blob": "3.0.5",
+    "@remix-run/web-fetch": "4.3.8",
+    "@remix-run/web-file": "3.0.3",
+    "@remix-run/web-form-data": "3.0.5",
+    "@remix-run/web-stream": "1.0.4"
+  },
+  "changesets": []
+}
