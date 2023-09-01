@@ -1,9 +1,9 @@
 ---
-"@remix-run/web-blob": patch
-"@remix-run/web-fetch": patch
-"@remix-run/web-file": patch
-"@remix-run/web-form-data": patch
-"@remix-run/web-stream": patch
+"@remix-run/web-blob": minor
+"@remix-run/web-fetch": minor
+"@remix-run/web-file": minor
+"@remix-run/web-form-data": minor
+"@remix-run/web-stream": minor
 ---
 
 Export CJS version for browser
