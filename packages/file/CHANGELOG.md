@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.1.0-pre.0
+
+### Minor Changes
+
+- 807fc63: Export CJS version for browser
+
+### Patch Changes
+
+- Updated dependencies [807fc63]
+  - @remix-run/web-blob@3.1.0-pre.0
+
 ## 3.0.3
 
 ### Patch Changes

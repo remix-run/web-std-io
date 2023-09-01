@@ -8,5 +8,8 @@
     "@remix-run/web-form-data": "3.0.5",
     "@remix-run/web-stream": "1.0.4"
   },
-  "changesets": []
+  "changesets": [
+    "afraid-coats-rescue",
+    "rude-wolves-float"
+  ]
 }
