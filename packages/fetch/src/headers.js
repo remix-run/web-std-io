@@ -51,23 +51,24 @@ export default HeadersPolyfill;
  * @param {import('http').IncomingMessage['rawHeaders']} headers
  */
 export function fromRawHeaders(headers = []) {
-	let init = headers
-    // Split into pairs
-    .reduce((result, _, index, array) => {
-    	if (index % 2 === 0) {
-    		let [k, v] = array.slice(index, index + 2);
-    		result.push([k, v]);
-    	}
-    	return result;
-    }, /** @type {[string, string][]} */([]))
-    .filter(([name, value]) => {
-    	try {
-    		validateHeaderName(name);
-    		validateHeaderValue(name, String(value));
-    		return true;
-    	} catch {
-    		return false;
-    	}
-    });
-	return new HeadersPolyfill(init);
+	return new HeadersPolyfill(
+		headers
+			// Split into pairs
+			.reduce((result, value, index, array) => {
+				if (index % 2 === 0) {
+					let [k, v] = array.slice(index, index + 2);
+					result.push([k, v]);
+				}
+				return result;
+			}, /** @type {[string, string][]} */([]))
+			.filter(([name, value]) => {
+				try {
+					validateHeaderName(name);
+					validateHeaderValue(name, String(value));
+					return true;
+				} catch {
+					return false;
+				}
+			})
+	);
 }
