@@ -110,10 +110,3 @@ export const isReadableStream = (value) => {
 		typeof value.tee === "function"
 	);
 };
-
-/**
- *
- * @param {any} value
- * @returns {value is Iterable<unknown>}
- */
-export const isIterable = (value) => value && Symbol.iterator in value;

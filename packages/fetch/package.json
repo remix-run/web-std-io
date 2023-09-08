@@ -105,6 +105,7 @@
     "@web3-storage/multipart-parser": "^1.0.0",
     "abort-controller": "^3.0.0",
     "data-uri-to-buffer": "^3.0.1",
+    "headers-polyfill": "^3.2.3",
     "mrmime": "^1.0.0"
   },
   "esm": {

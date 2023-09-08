@@ -330,8 +330,7 @@ export const getNodeRequestOptions = request => {
 		query: parsedURL.query,
 		href: parsedURL.href,
 		method: request.method,
-		// @ts-ignore - not sure what this supposed to do
-		headers: headers[Symbol.for('nodejs.util.inspect.custom')](),
+		headers: headers.raw(),
 		insecureHTTPParser: request.insecureHTTPParser,
 		agent
 	};
