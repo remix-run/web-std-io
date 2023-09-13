@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0
+
+### Minor Changes
+
+- 807fc63: Export CJS version for browser
+
 ## 3.1.0-pre.0
 
 ### Minor Changes
