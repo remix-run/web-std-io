@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.1.0
+
+### Minor Changes
+
+- Export CJS version for browser ([807fc63](https://github.com/remix-run/web-std-io/commit/807fc63))
+
+### Patch Changes
+
+- Updated dependencies
+  - `@remix-run/web-blob@3.1.0`
+
 ## 3.1.0-pre.0
 
 ### Minor Changes

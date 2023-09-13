@@ -1,18 +1,18 @@
 # Changelog
 
-## 4.4.0-pre.0
+## 4.4.0
 
 ### Minor Changes
 
-- 807fc63: Export CJS version for browser
+- Export CJS version for browser ([807fc63](https://github.com/remix-run/web-std-io/commit/807fc63))
 
 ### Patch Changes
 
-- d3a1ffd: fix `toFormData` imports
-- Updated dependencies [807fc63]
-  - @remix-run/web-file@3.1.0-pre.0
-  - @remix-run/web-form-data@3.1.0-pre.0
-  - @remix-run/web-stream@1.1.0-pre.0
+- Fix `toFormData` imports  ([d3a1ffd](https://github.com/remix-run/web-std-io/commit/d3a1ffd))
+- Updated dependencies
+  - `@remix-run/web-file@3.1.0`
+  - `@remix-run/web-form-data@3.1.0`
+  - `@remix-run/web-stream@1.1.0`
 
 ## 4.3.8
 

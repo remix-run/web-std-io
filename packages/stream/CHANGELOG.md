@@ -1,10 +1,10 @@
 # Changelog
 
-## 1.1.0-pre.0
+## 1.1.0
 
 ### Minor Changes
 
-- 807fc63: Export CJS version for browser
+- Export CJS version for browser ([807fc63](https://github.com/remix-run/web-std-io/commit/807fc63))
 
 ## 1.0.4
 
