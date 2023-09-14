@@ -51,7 +51,10 @@ const validateHeaderValue = typeof validators.validateHeaderValue === 'function'
  *
  * @implements {globalThis.Headers}
  */
-export default class Headers extends URLSearchParams {
+export default class Headers {
+	/** @type {Map<string, string[]>} */
+	#pairs = new Map();
+
 	/**
 	 * Headers class
 	 *
@@ -59,21 +62,16 @@ export default class Headers extends URLSearchParams {
 	 * @param {HeadersInit} [init] - Response headers
 	 */
 	constructor(init) {
-		// Validate and normalize init object in [name, value(s)][]
-		/** @type {string[][]} */
-		let result = [];
 		if (init instanceof Headers) {
-			const raw = init.raw();
-			for (const [name, values] of Object.entries(raw)) {
-				result.push(...values.map(value => [name, value]));
+			for (const [name, value] of init.entries()) {
+				this.append(name, value);
 			}
 		} else if (init == null) { // eslint-disable-line no-eq-null, eqeqeq
 			// No op
 		} else if (isIterable(init)) {
 			// Sequence<sequence<ByteString>>
 			// Note: per spec we have to first exhaust the lists then process them
-			result = [...init]
-				.map(pair => {
+			[...init].map(pair => {
 					if (
 						typeof pair !== 'object' || types.isBoxedPrimitive(pair)
 					) {
@@ -81,80 +79,22 @@ export default class Headers extends URLSearchParams {
 					}
 
 					return [...pair];
-				}).map(pair => {
+				}).forEach(pair => {
 					if (pair.length !== 2) {
 						throw new TypeError('Each header pair must be a name/value tuple');
 					}
 
-					return [...pair];
+					this.append(pair[0], pair[1]);
 				});
+		// } else if (Symbol.iterator in init && typeof init[Symbol.iterator] !== 'function') {
+		// 	throw new TypeError("Failed to construct 'Headers': @@iterator must be a callable.")
 		} else if (typeof init === "object" && init !== null) {
-			// Record<ByteString, ByteString>
-			result.push(...Object.entries(init));
+			for (const [name, value] of Object.entries(init)) {
+				this.append(name, value);
+			}
 		} else {
 			throw new TypeError('Failed to construct \'Headers\': The provided value is not of type \'(sequence<sequence<ByteString>> or record<ByteString, ByteString>)');
 		}
-
-		// Validate and lowercase
-		result =
-			result.length > 0 ?
-				result.map(([name, value]) => {
-					validateHeaderName(name);
-					validateHeaderValue(name, String(value));
-					return [String(name).toLowerCase(), String(value)];
-				}) :
-				[];
-
-		super(result);
-
-		// Returning a Proxy that will lowercase key names, validate parameters and sort keys
-		// eslint-disable-next-line no-constructor-return
-		return new Proxy(this, {
-			get(target, p, receiver) {
-				switch (p) {
-					case 'append':
-					case 'set':
-						/**
-						 * @param {string} name
-						 * @param {string} value
-						 */
-						return (name, value) => {
-							validateHeaderName(name);
-							validateHeaderValue(name, String(value));
-							return URLSearchParams.prototype[p].call(
-								target,
-								String(name).toLowerCase(),
-								String(value)
-							);
-						};
-
-					case 'delete':
-					case 'has':
-					case 'getAll':
-						/**
-						 * @param {string} name
-						 */
-						return name => {
-							validateHeaderName(name);
-							// @ts-ignore
-							return URLSearchParams.prototype[p].call(
-								target,
-								String(name).toLowerCase()
-							);
-						};
-
-					case 'keys':
-						return () => {
-							target.sort();
-							return new Set(URLSearchParams.prototype.keys.call(target)).keys();
-						};
-
-					default:
-						return Reflect.get(target, p, receiver);
-				}
-			}
-			/* c8 ignore next */
-		});
 	}
 
 	get [Symbol.toStringTag]() {
@@ -166,12 +106,48 @@ export default class Headers extends URLSearchParams {
 	}
 
 	/**
-	 *
+	 * @param {string} name
+	 * @returns {boolean}
+	 */
+	has(name) {
+		validateHeaderName(name)
+		return this.#pairs.has(name);
+	}
+
+	/**
+	 * @param {string} name
+	 * @param {string} value
+	 */
+	set(name, value) {
+		validateHeaderName(name);
+		validateHeaderValue(name, value);
+		name = name.toLowerCase();
+		this.#pairs.set(name, [value]);
+	}
+
+	/**
+	 * @param {string} name
+	 * @param {string} value
+	 */
+	append(name, value) {
+		validateHeaderName(name);
+		validateHeaderValue(name, value);
+		name = name.toLowerCase();
+		let values = this.#pairs.get(name);
+		if (values != null) {
+			this.#pairs.set(name, [...values, value]);
+		} else {
+			this.#pairs.set(name, [value]);
+		}
+	}
+
+	/**
 	 * @param {string} name
 	 */
 	get(name) {
-		const values = this.getAll(name);
-		if (values.length === 0) {
+		validateHeaderName(name);
+		const values = this.#pairs.get(name.toLowerCase());
+		if (values == null) {
 			return null;
 		}
 
@@ -184,53 +160,63 @@ export default class Headers extends URLSearchParams {
 	}
 
 	/**
+	 * @returns {string[]}
+	 */
+	getSetCookie() {
+		// Raw access - requires lowercase
+		const values = this.#pairs.get('set-cookie');
+		return values || [];
+	}
+
+  /**
+	 * @param {string} name
+	 * @returns {void}
+	 */
+	delete(name) {
+		validateHeaderName(name)
+		this.#pairs.delete(name);
+	}
+
+	/**
 	 * @param {(value: string, key: string, parent: this) => void} callback
 	 * @param {any} thisArg
 	 * @returns {void}
 	 */
 	forEach(callback, thisArg = undefined) {
-		for (const name of this.keys()) {
-			if (name.toLowerCase() === 'set-cookie') {
-				let cookies = this.getAll(name);
-				while (cookies.length > 0) {
-					Reflect.apply(callback, thisArg, [cookies.shift(), name, this])
-				}
-			} else {
-				Reflect.apply(callback, thisArg, [this.get(name), name, this]);
-			}
-		}
-	}
-
-	/**
-	 * @returns {IterableIterator<string>}
-	 */
-	* values() {
-		for (const name of this.keys()) {
-			if (name.toLowerCase() === 'set-cookie') {
-				let cookies = this.getAll(name);
-				while (cookies.length > 0) {
-					yield /** @type {string} */(cookies.shift());
-				}
-			} else {
-				yield /** @type {string} */(this.get(name));
-			}
+		for (let [name, value] of this.entries()) {
+			callback.apply(thisArg, [value, name, this])
 		}
 	}
 
 	/**
 	 * @returns {IterableIterator<[string, string]>}
 	 */
-	* entries() {
-		for (const name of this.keys()) {
+	entries() {
+		/** @type [string,string][] */
+		let entries = [];
+		for (const name of this.#pairs.keys()) {
 			if (name.toLowerCase() === 'set-cookie') {
-				let cookies = this.getAll(name);
-				while (cookies.length > 0) {
-					yield [name, /** @type {string} */(cookies.shift())];
+				let cookies = this.getSetCookie();
+				for (let cookie of cookies) {
+					entries.push([name, cookie]);
 				}
 			} else {
-				yield [name, /** @type {string} */(this.get(name))];
+				let value = this.get(name)
+				if (value != null) {
+					entries.push([name, value]);
+				}
 			}
 		}
+		entries.sort((a, b) => a[0].localeCompare(b[0]));
+		return entries[Symbol.iterator]();
+	}
+
+	keys() {
+		return [...this.entries()].map(e => e[0])[Symbol.iterator]();
+	}
+
+	values() {
+		return [...this.entries()].map(e => e[1])[Symbol.iterator]();
 	}
 
 	[Symbol.iterator]() {
@@ -238,23 +224,16 @@ export default class Headers extends URLSearchParams {
 	}
 
 	/**
-	 * Node-fetch non-spec method
-	 * returning all headers and their values as array
-	 * @returns {Record<string, string[]>}
-	 */
-	raw() {
-		return [...this.keys()].reduce((result, key) => {
-			result[key] = this.getAll(key);
-			return result;
-		}, /** @type {Record<string, string[]>} */({}));
-	}
-
-	/**
 	 * For better console.log(headers) and also to convert Headers into Node.js Request compatible format
 	 */
 	[Symbol.for('nodejs.util.inspect.custom')]() {
+		debugger;
 		return [...this.keys()].reduce((result, key) => {
-			const values = this.getAll(key);
+			const values = this.#pairs.get(key);
+			if (!values  || values.length === 0) {
+				return result;
+			}
+
 			// Http.request() only supports string as Host header.
 			// This hack makes specifying custom Host header possible.
 			if (key === 'host') {
@@ -267,18 +246,6 @@ export default class Headers extends URLSearchParams {
 		}, /** @type {Record<string, string|string[]>} */({}));
 	}
 }
-
-/**
- * Re-shaping object for Web IDL tests
- * Only need to do it for overridden methods
- */
-Object.defineProperties(
-	Headers.prototype,
-	['get', 'entries', 'forEach', 'values'].reduce((result, property) => {
-		result[property] = {enumerable: true};
-		return result;
-	}, /** @type {Record<string, {enumerable:true}>} */ ({}))
-);
 
 /**
  * Create a Headers object from an http.IncomingMessage.rawHeaders, ignoring those that do

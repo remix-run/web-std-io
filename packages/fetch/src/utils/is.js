@@ -112,8 +112,13 @@ export const isReadableStream = (value) => {
 };
 
 /**
- *
- * @param {any} value
- * @returns {value is Iterable<unknown>}
+ * @template T
+ * @param {unknown} value
+ * @returns {value is Iterable<T>}
  */
-export const isIterable = (value) => value && Symbol.iterator in value;
+export const isIterable = (value) => (
+	typeof value === 'object' &&
+	value != null &&
+	Symbol.iterator in value /*&&
+	typeof value[Symbol.iterator] === 'function'*/
+)
