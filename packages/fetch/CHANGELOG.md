@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.4.1
+
+### Patch Changes
+
+- 15868ef: Add missing `@remix-run/web-blob` dependency to `@remix-run/web-fetch`
+
 ## 4.4.0
 
 ### Minor Changes
@@ -8,7 +14,7 @@
 
 ### Patch Changes
 
-- Fix `toFormData` imports  ([d3a1ffd](https://github.com/remix-run/web-std-io/commit/d3a1ffd))
+- Fix `toFormData` imports ([d3a1ffd](https://github.com/remix-run/web-std-io/commit/d3a1ffd))
 - Updated dependencies
   - `@remix-run/web-file@3.1.0`
   - `@remix-run/web-form-data@3.1.0`
