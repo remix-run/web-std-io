@@ -1,6 +1,6 @@
 {
   "name": "@remix-run/web-file",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "Web API compatible File implementation for node",
   "files": [
     "src",
@@ -20,22 +20,26 @@
   "browser": {
     "./src/lib.node.js": "./src/lib.js"
   },
+  "types": "./dist/src/lib.d.ts",
   "exports": {
     ".": {
-      "browser": "./src/lib.js",
+      "types": "./dist/src/lib.d.ts",
+      "browser": {
+        "require": "./dist/src/lib.cjs",
+        "import": "./src/lib.js"
+      },
       "require": "./dist/src/lib.node.cjs",
       "node": "./src/lib.node.js"
     }
   },
-  "types": "./dist/src/lib.d.ts",
   "dependencies": {
-    "@remix-run/web-blob": "^3.0.4"
+    "@remix-run/web-blob": "^3.1.0"
   },
   "author": "Irakli Gozalishvili <dev@gozala.io> (https://gozala.io)",
   "repository": "https://github.com/remix-run/web-std-io",
   "license": "MIT",
   "devDependencies": {
-    "@remix-run/web-fetch": "^4.1.1",
+    "@remix-run/web-fetch": "^4.4.0",
     "@types/node": "15.0.2",
     "git-validate": "2.2.4",
     "husky": "^6.0.0",
@@ -49,7 +53,7 @@
     "uvu": "0.5.2"
   },
   "scripts": {
-    "check": "tsc --build",
+    "typecheck": "tsc",
     "build": "npm run build:cjs && npm run build:types",
     "build:cjs": "rollup --config rollup.config.js",
     "build:types": "tsc --build",

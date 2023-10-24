@@ -1,5 +1,55 @@
 # Changelog
 
+## 4.4.1
+
+### Patch Changes
+
+- 15868ef: Add missing `@remix-run/web-blob` dependency to `@remix-run/web-fetch`
+
+## 4.4.0
+
+### Minor Changes
+
+- Export CJS version for browser ([807fc63](https://github.com/remix-run/web-std-io/commit/807fc63))
+
+### Patch Changes
+
+- Fix `toFormData` imports ([d3a1ffd](https://github.com/remix-run/web-std-io/commit/d3a1ffd))
+- Updated dependencies
+  - `@remix-run/web-file@3.1.0`
+  - `@remix-run/web-form-data@3.1.0`
+  - `@remix-run/web-stream@1.1.0`
+
+## 4.3.8
+
+### Patch Changes
+
+- 8ea9e6c: fetch called on non Window object
+
+## 4.3.7
+
+### Patch Changes
+
+- Fix `headers.entries`/`values`/`forEach` iteration for `Set-Cookie` headers ([#39](https://github.com/remix-run/web-std-io/pull/39))
+- Import `Buffer` from `"buffer"` instead of relying on a global `Buffer` ([#40](https://github.com/remix-run/web-std-io/pull/40))
+
+## 4.3.6
+
+### Patch Changes
+
+- 5d1e12a: Remove socket listeners if request is aborted
+- 43c6ce2: Move types conditional export to the top of the list to align with [the node guidance](https://nodejs.org/api/packages.html#community-conditions-definitions)
+- Updated dependencies [43c6ce2]
+  - @remix-run/web-blob@3.0.5
+  - @remix-run/web-form-data@3.0.5
+  - @remix-run/web-stream@1.0.4
+
+## 4.3.5
+
+### Patch Changes
+
+- cf9ee6f: Submitted empty file inputs are now correctly parsed out as empty `File` instances instead of being surfaced as an empty string via `request.formData()`
+
 ## 4.3.4
 
 ### Patch Changes
@@ -57,7 +107,7 @@
 
 - add support for application/x-www-form-urlencoded in request.formData() ([#60](https://www.github.com/web-std/io/issues/60)) ([c719b0d](https://www.github.com/web-std/io/commit/c719b0de442811eb588309b777ab6ab3d966cdf1))
 
-### [4.0.1](https://www.github.com/web-std/io/compare/fetch-v4.0.0...fetch-v4.0.1) (2022-04-13)
+## [4.0.1](https://www.github.com/web-std/io/compare/fetch-v4.0.0...fetch-v4.0.1) (2022-04-13)
 
 ### Bug Fixes
 
@@ -76,19 +126,19 @@
 - export native fetch on the web ([#53](https://www.github.com/web-std/io/issues/53)) ([af03280](https://www.github.com/web-std/io/commit/af03280788286cd69185efb0572da162f16d48cc))
 - implement file: protocol support for fetch ([#55](https://www.github.com/web-std/io/issues/55)) ([19d17c7](https://www.github.com/web-std/io/commit/19d17c76f995800c9e07d5d6a923f33b81ab1d22))
 
-### [3.0.3](https://www.github.com/web-std/io/compare/fetch-v3.0.2...fetch-v3.0.3) (2022-01-28)
+## [3.0.3](https://www.github.com/web-std/io/compare/fetch-v3.0.2...fetch-v3.0.3) (2022-01-28)
 
 ### Bug Fixes
 
 - include dist/index.cjs in files ([#47](https://www.github.com/web-std/io/issues/47)) ([2a12474](https://www.github.com/web-std/io/commit/2a1247404650bf5b6662fa520248bf07ae457987))
 
-### [3.0.2](https://www.github.com/web-std/io/compare/fetch-v3.0.1...fetch-v3.0.2) (2022-01-21)
+## [3.0.2](https://www.github.com/web-std/io/compare/fetch-v3.0.1...fetch-v3.0.2) (2022-01-21)
 
 ### Changes
 
 - bump fetch versions ([e8ae4e5](https://www.github.com/web-std/io/commit/e8ae4e5e61591f1bcbd45a0541c762468e134e4b))
 
-### [3.0.1](https://www.github.com/web-std/io/compare/fetch-v3.0.0...fetch-v3.0.1) (2022-01-19)
+## [3.0.1](https://www.github.com/web-std/io/compare/fetch-v3.0.0...fetch-v3.0.1) (2022-01-19)
 
 ### Bug Fixes
 

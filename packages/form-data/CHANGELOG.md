@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.1.0
+
+### Minor Changes
+
+- Export CJS version for browser ([807fc63](https://github.com/remix-run/web-std-io/commit/807fc63))
+
+## 3.0.5
+
+### Patch Changes
+
+- 43c6ce2: Move types conditional export to the top of the list to align with [the node guidance](https://nodejs.org/api/packages.html#community-conditions-definitions)
+
 ## 3.0.4
 
 ### Patch Changes
@@ -12,13 +24,13 @@
 
 - 6521895: Fix submitting form data when file input is empty. Addresses https://github.com/remix-run/remix/pull/3576
 
-### [3.0.2](https://www.github.com/web-std/io/compare/form-data-v3.0.1...form-data-v3.0.2) (2022-01-21)
+## [3.0.2](https://www.github.com/web-std/io/compare/form-data-v3.0.1...form-data-v3.0.2) (2022-01-21)
 
 ### Changes
 
 - bump form-data version ([b7ac808](https://www.github.com/web-std/io/commit/b7ac808ba8ae6488d5c2dc6d0d441412a7a8e2b8))
 
-### [3.0.1](https://www.github.com/web-std/io/compare/form-data-v3.0.0...form-data-v3.0.1) (2022-01-19)
+## [3.0.1](https://www.github.com/web-std/io/compare/form-data-v3.0.0...form-data-v3.0.1) (2022-01-19)
 
 ### Bug Fixes
 

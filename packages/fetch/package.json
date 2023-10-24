@@ -1,6 +1,6 @@
 {
   "name": "@remix-run/web-fetch",
-  "version": "4.3.4",
+  "version": "4.4.1",
   "description": "Web API compatible fetch implementation",
   "main": "./dist/lib.node.cjs",
   "module": "./src/lib.node.js",
@@ -9,27 +9,30 @@
   "type": "module",
   "exports": {
     ".": {
-      "browser": "./src/lib.js",
+      "types": "./dist/src/lib.node.d.ts",
+      "browser": {
+        "require": "./dist/lib.cjs",
+        "import": "./src/lib.js"
+      },
       "require": "./dist/lib.node.cjs",
-      "import": "./src/lib.node.js",
-      "types": "./dist/src/lib.node.d.ts"
+      "import": "./src/lib.node.js"
     },
     "./package.json": "./package.json",
     "./body": {
-      "import": "./src/body.js",
-      "types": "./dist/src/body.d.ts"
+      "types": "./dist/src/body.d.ts",
+      "import": "./src/body.js"
     },
     "./src/request.js": {
-      "import": "./src/request.js",
-      "types": "./dist/src/request.d.ts"
+      "types": "./dist/src/request.d.ts",
+      "import": "./src/request.js"
     },
     "./src/response.js": {
-      "import": "./src/response.js",
-      "types": "./dist/src/response.d.ts"
+      "types": "./dist/src/response.d.ts",
+      "import": "./src/response.js"
     },
     "./src/headers.js": {
-      "import": "./src/headers.js",
-      "types": "./dist/src/headers.d.ts"
+      "types": "./dist/src/headers.d.ts",
+      "import": "./src/headers.js"
     }
   },
   "files": [
@@ -43,10 +46,10 @@
   },
   "scripts": {
     "build": "npm run build:cjs && npm run build:types",
-    "test": "node --experimental-modules ../../node_modules/c8/bin/c8 --reporter=html --reporter=lcov --reporter=text --check-coverage node --experimental-modules ../../node_modules/mocha/bin/mocha",
+    "test:es": "node --experimental-modules ../../node_modules/c8/bin/c8 --reporter=html --reporter=lcov --reporter=text --check-coverage node --experimental-modules ../../node_modules/mocha/bin/mocha",
     "test:cjs": "node ./test/commonjs/test-artifact.js",
     "coverage": "c8 report --reporter=text-lcov | coveralls",
-    "typecheck": "tsc --build",
+    "typecheck": "tsc",
     "build:types": "tsc --build",
     "build:cjs": "rollup -c",
     "lint": "xo",
@@ -96,9 +99,10 @@
     "xo": "^0.33.1"
   },
   "dependencies": {
-    "@remix-run/web-blob": "^3.0.4",
-    "@remix-run/web-form-data": "^3.0.3",
-    "@remix-run/web-stream": "^1.0.3",
+    "@remix-run/web-blob": "^3.1.0",
+    "@remix-run/web-file": "^3.1.0",
+    "@remix-run/web-form-data": "^3.1.0",
+    "@remix-run/web-stream": "^1.1.0",
     "@web3-storage/multipart-parser": "^1.0.0",
     "abort-controller": "^3.0.0",
     "data-uri-to-buffer": "^3.0.1",
