@@ -127,9 +127,10 @@ export default class Response extends Body {
 	}
 
 	/**
-	 * @param {any} data The URL that the new response is to originate from.
+	 * @template {unknown} Data
+	 * @param {Data} data The URL that the new response is to originate from.
 	 * @param {ResponseInit} [responseInit] An optional status code for the response (e.g., 302.)
-	 * @returns {Response} A Response object.
+	 * @returns {Promise<Data>} A Response object.
 	 */
 	static json(data, responseInit = {}) {
 		let headers = new Headers(responseInit.headers);
