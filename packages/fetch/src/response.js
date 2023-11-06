@@ -19,6 +19,11 @@ const INTERNALS = Symbol('Response internals');
  * @property {number} [counter]
  * @property {number} [highWaterMark]
  *
+ * @typedef {Omit<Response, "json"> & {
+ *   json(): Promise<T>;
+ * }} TypedResponse
+ * @template T
+ *
  * @implements {globalThis.Response}
  */
 export default class Response extends Body {
@@ -158,10 +163,3 @@ Object.defineProperties(Response.prototype, {
 	headers: {enumerable: true},
 	clone: {enumerable: true}
 });
-
-/**
- * @typedef {Omit<Response, "json"> & {
- *   json(): Promise<T>;
- * }} TypedResponse
- * @template T
- */
