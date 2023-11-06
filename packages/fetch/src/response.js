@@ -128,9 +128,9 @@ export default class Response extends Body {
 
 	/**
 	 * @template {unknown} Data
-	 * @param {Data} data The URL that the new response is to originate from.
+	 * @param {Data} data The data to be converted into a JSON string.
 	 * @param {ResponseInit} [responseInit] An optional status code for the response (e.g., 302.)
-	 * @returns {Promise<Data>} A Response object.
+	 * @returns {TypedResponse<Data>} A Response object.
 	 */
 	static json(data, responseInit = {}) {
 		let headers = new Headers(responseInit.headers);
@@ -159,3 +159,9 @@ Object.defineProperties(Response.prototype, {
 	clone: {enumerable: true}
 });
 
+/**
+ * @typedef {Omit<Response, "json"> & {
+ *   json(): Promise<T>;
+ * }} TypedResponse
+ * @template T
+ */
