@@ -8,21 +8,19 @@ import {types} from 'util';
 import http from 'http';
 import { isIterable } from './utils/is.js'
 
-const validators = /** @type {{validateHeaderName?:(name:string) => any, validateHeaderValue?:(name:string, value:string) => any}} */
-(http)
+/** @type {{validateHeaderValue?:(name:string, value:string) => any}} */
+const validators = (http)
 
-const validateHeaderName = typeof validators.validateHeaderName === 'function' ?
-	validators.validateHeaderName :
-	/**
-	 * @param {string} name
-	 */
-	name => {
-		if (!/^[\^`\-\w!#$%&'*+.|~]+$/.test(name)) {
-			const err = new TypeError(`Header name must be a valid HTTP token [${name}]`);
-			Object.defineProperty(err, 'code', {value: 'ERR_INVALID_HTTP_TOKEN'});
-			throw err;
-		}
-	};
+/**
+ * @param {string} name
+ */
+const validateHeaderName = name => {
+	if (!/^[\^`\-\w!#$%&'*+.|~:]+$/.test(name)) {
+		const err = new TypeError(`Header name must be a valid HTTP token [${name}]`);
+		Object.defineProperty(err, 'code', {value: 'ERR_INVALID_HTTP_TOKEN'});
+		throw err;
+	}
+};
 
 const validateHeaderValue = typeof validators.validateHeaderValue === 'function' ?
 	validators.validateHeaderValue :
