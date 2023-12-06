@@ -1,10 +1,10 @@
 # Changelog
 
-## 4.4.2-pre.0
+## 4.4.2
 
 ### Patch Changes
 
-- 3986fb3: Support HTTP2 pseudo-headers like `:authority`, `:method`, etc.
+- Support HTTP2 pseudo-headers like `:authority`, `:method`, etc. ([#55](https://github.com/remix-run/web-std-io/pull/55))
 
 ## 4.4.1
 
