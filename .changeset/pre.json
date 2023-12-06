@@ -1,5 +1,5 @@
 {
-  "mode": "pre",
+  "mode": "exit",
   "tag": "pre",
   "initialVersions": {
     "@remix-run/web-blob": "3.1.0",
