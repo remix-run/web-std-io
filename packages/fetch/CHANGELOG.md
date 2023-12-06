@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.4.2
+
+### Patch Changes
+
+- 3986fb3: Support HTTP2 pseudo-headers like `:authority`, `:method`, etc.
+
 ## 4.4.2-pre.0
 
 ### Patch Changes
