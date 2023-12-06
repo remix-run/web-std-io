@@ -8,5 +8,7 @@
     "@remix-run/web-form-data": "3.1.0",
     "@remix-run/web-stream": "1.1.0"
   },
-  "changesets": []
+  "changesets": [
+    "wise-dogs-clean"
+  ]
 }
