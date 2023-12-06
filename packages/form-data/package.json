@@ -38,7 +38,7 @@
   "license": "MIT",
   "devDependencies": {
     "@remix-run/web-blob": "^3.1.0",
-    "@remix-run/web-fetch": "^4.4.0",
+    "@remix-run/web-fetch": "^4.4.2-pre.0",
     "@remix-run/web-file": "^3.1.0",
     "@types/node": "15.0.2",
     "git-validate": "2.2.4",

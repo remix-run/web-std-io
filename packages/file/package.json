@@ -39,7 +39,7 @@
   "repository": "https://github.com/remix-run/web-std-io",
   "license": "MIT",
   "devDependencies": {
-    "@remix-run/web-fetch": "^4.4.0",
+    "@remix-run/web-fetch": "^4.4.2-pre.0",
     "@types/node": "15.0.2",
     "git-validate": "2.2.4",
     "husky": "^6.0.0",
