@@ -480,7 +480,7 @@ describe('Request', () => {
 		return clonedRequest.formData().then(async clonedFormData => {
 			expect(clonedFormData.get('a')).to.equal("1");
 			const file = clonedFormData.get('file');
-			expect(file.name).to.	equal("");
+			expect(file.name).to.equal("");
 			expect(file.type).to.equal("application/octet-stream");
 			expect(file.size).to.equal(0);
 		});
