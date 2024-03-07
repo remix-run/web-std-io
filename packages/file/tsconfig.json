@@ -8,9 +8,6 @@
   },
   "references": [
     {
-      "path": "../blob"
-    },
-    {
       "path": "../fetch"
     }
   ],

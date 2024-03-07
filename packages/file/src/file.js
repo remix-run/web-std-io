@@ -1,5 +1,3 @@
-import { Blob } from "./package.js"
-
 /**
  * @implements {globalThis.File}
  */
@@ -14,7 +12,7 @@ export class File extends Blob {
   constructor(
     init,
     name = panic(new TypeError("File constructor requires name argument")),
-    options = {}
+    options = {},
   ) {
     super(init, options)
     // Per File API spec https://w3c.github.io/FileAPI/#file-constructor
@@ -61,6 +59,6 @@ export class File extends Blob {
  * @param {*} error
  * @returns {never}
  */
-const panic = error => {
+const panic = (error) => {
   throw error
 }

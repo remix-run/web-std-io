@@ -4,7 +4,6 @@ import {TextEncoder} from 'util';
 import AbortController from 'abort-controller';
 import chai from 'chai';
 import FormData from 'form-data';
-import {Blob} from '@remix-run/web-fetch';
 import { ReadableStream } from '@remix-run/web-fetch';
 
 import TestServer from './utils/server.js';
@@ -481,7 +480,7 @@ describe('Request', () => {
 		return clonedRequest.formData().then(async clonedFormData => {
 			expect(clonedFormData.get('a')).to.equal("1");
 			const file = clonedFormData.get('file');
-			expect(file.name).to.equal("");
+			expect(file.name).to.	equal("");
 			expect(file.type).to.equal("application/octet-stream");
 			expect(file.size).to.equal(0);
 		});

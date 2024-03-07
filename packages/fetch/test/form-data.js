@@ -1,5 +1,4 @@
 import FormData from 'formdata-node';
-import {Blob} from '@remix-run/web-blob';
 
 import chai from 'chai';
 

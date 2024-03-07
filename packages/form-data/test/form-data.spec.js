@@ -1,6 +1,6 @@
-import { FormData } from "@remix-run/web-form-data";
+import { File } from "@remix-run/web-file";
 import * as lib from "@remix-run/web-form-data";
-import { File, Blob } from "@remix-run/web-file";
+import { FormData } from "@remix-run/web-form-data";
 import { assert } from "./test.js";
 
 /**

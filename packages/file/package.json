@@ -32,9 +32,6 @@
       "node": "./src/lib.node.js"
     }
   },
-  "dependencies": {
-    "@remix-run/web-blob": "^3.1.0"
-  },
   "author": "Irakli Gozalishvili <dev@gozala.io> (https://gozala.io)",
   "repository": "https://github.com/remix-run/web-std-io",
   "license": "MIT",

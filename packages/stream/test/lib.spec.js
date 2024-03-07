@@ -5,7 +5,7 @@ import { assert } from "./test.js";
  * @param {import('./test').Test} test
  */
 export const test = test => {
-  test("test baisc", async () => {
+  test("test basic", async () => {
     assert.isEqual(typeof lib.ReadableStream, "function");
   });
 

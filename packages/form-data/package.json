@@ -30,14 +30,10 @@
       "import": "./src/lib.node.js"
     }
   },
-  "dependencies": {
-    "web-encoding": "1.1.5"
-  },
   "author": "Irakli Gozalishvili <dev@gozala.io> (https://gozala.io)",
   "repository": "https://github.com/remix-run/web-std-io",
   "license": "MIT",
   "devDependencies": {
-    "@remix-run/web-blob": "^3.1.0",
     "@remix-run/web-fetch": "^4.4.2-pre.0",
     "@remix-run/web-file": "^3.1.0",
     "@types/node": "15.0.2",
