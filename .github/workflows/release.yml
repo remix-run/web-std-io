@@ -25,7 +25,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           cache: yarn
-          node-version: 16
+          node-version: 18
 
       - name: 📥 Install deps
         run: yarn --frozen-lockfile
