@@ -277,7 +277,6 @@ async function fetch(url, options_ = {}) {
 
 			// For gzip
 			if (codings === 'gzip' || codings === 'x-gzip') {
-				responseOptions.headers.delete("Content-Encoding");
 				body = pump(body, zlib.createGunzip(zlibOptions), reject);
 				response = new Response(fromAsyncIterable(body), responseOptions);
 				resolve(response);
@@ -286,7 +285,6 @@ async function fetch(url, options_ = {}) {
 
 			// For deflate
 			if (codings === 'deflate' || codings === 'x-deflate') {
-				responseOptions.headers.delete("Content-Encoding");
 				// Handle the infamous raw deflate response from old servers
 				// a hack for old IIS and Apache servers
 				const raw = pump(response_, new PassThrough(), reject);
@@ -306,7 +304,6 @@ async function fetch(url, options_ = {}) {
 
 			// For br
 			if (codings === 'br') {
-				responseOptions.headers.delete("Content-Encoding");
 				body = pump(body, zlib.createBrotliDecompress(), reject);
 				response = new Response(fromAsyncIterable(body), responseOptions);
 				resolve(response);
