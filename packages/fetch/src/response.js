@@ -12,13 +12,18 @@ const INTERNALS = Symbol('Response internals');
 
 /**
  * Response class
- * 
+ *
  * @typedef {Object} Ext
  * @property {number} [size]
  * @property {string} [url]
  * @property {number} [counter]
  * @property {number} [highWaterMark]
- * 
+ *
+ * @typedef {Omit<Response, "json"> & {
+ *   json(): Promise<T>;
+ * }} TypedResponse
+ * @template T
+ *
  * @implements {globalThis.Response}
  */
 export default class Response extends Body {
@@ -126,6 +131,24 @@ export default class Response extends Body {
 		});
 	}
 
+	/**
+	 * @template {unknown} Data
+	 * @param {Data} data The data to be converted into a JSON string.
+	 * @param {ResponseInit} [responseInit] An optional status code for the response (e.g., 302.)
+	 * @returns {TypedResponse<Data>} A Response object.
+	 */
+	static json(data, responseInit = {}) {
+		let headers = new Headers(responseInit.headers);
+		if (!headers.has("Content-Type")) {
+			headers.set("Content-Type", "application/json; charset=utf-8");
+		}
+
+		return new Response(JSON.stringify(data), {
+			...responseInit,
+			headers,
+		});
+	}
+
 	get [Symbol.toStringTag]() {
 		return 'Response';
 	}
@@ -140,4 +163,3 @@ Object.defineProperties(Response.prototype, {
 	headers: {enumerable: true},
 	clone: {enumerable: true}
 });
-
