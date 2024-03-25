@@ -100,7 +100,6 @@
     "xo": "^0.33.1"
   },
   "dependencies": {
-    "@remix-run/web-blob": "^3.1.0",
     "@remix-run/web-file": "^3.1.0",
     "@remix-run/web-form-data": "^3.1.0",
     "@remix-run/web-stream": "^1.1.0",

@@ -5,7 +5,7 @@ const lib = require("@remix-run/web-stream");
  */
 exports.test = async ({ test, assert }) => {
   console.log("define tests");
-  test("test baisc", async () => {
+  test("test basic", async () => {
     console.log("test basic");
 
     assert.isEqual(typeof lib.ReadableStream, "function");

@@ -1,6 +1,5 @@
 "use strict"
 
-import { Blob } from "./package.js"
 import { File as WebFile } from "./file.js"
 
 // Electron-renderer should get the browser implementation instead of node
@@ -10,4 +9,4 @@ import { File as WebFile } from "./file.js"
 /** @type {typeof globalThis.File} */
 const File = WebFile
 
-export { File, Blob }
+export { File }

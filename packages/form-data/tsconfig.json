@@ -9,13 +9,7 @@
   "references": [
     {
       "path": "../file"
-    },
-    {
-      "path": "../blob"
     }
   ],
-  "include": [
-    "src",
-    "test"
-  ]
+  "include": ["src", "test"]
 }

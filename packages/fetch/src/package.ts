@@ -1,4 +1,4 @@
-export const { FormData, Blob, File } = globalThis
+export const { FormData, File } = globalThis
 export { ReadableStream } from "@remix-run/web-stream"
 
 

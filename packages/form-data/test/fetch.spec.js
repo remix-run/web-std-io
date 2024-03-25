@@ -1,5 +1,4 @@
 import { FormData } from "@remix-run/web-form-data";
-import { Blob } from "@remix-run/web-file";
 import { Response } from "@remix-run/web-fetch";
 import { assert } from "./test.js";
 

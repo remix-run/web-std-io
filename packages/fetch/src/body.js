@@ -8,7 +8,7 @@
 import Stream from 'stream';
 import {types} from 'util';
 
-import {Blob, ReadableStream} from './package.js';
+import {ReadableStream} from './package.js';
 
 import {FetchError} from './errors/fetch-error.js';
 import {FetchBaseError} from './errors/base.js';
