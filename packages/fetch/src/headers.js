@@ -4,8 +4,8 @@
  * Headers class offers convenient helpers
  */
 
-import {types} from 'util';
-import http from 'http';
+import {types} from 'node:util';
+import http from 'node:http';
 import { isIterable } from './utils/is.js'
 
 /** @type {{validateHeaderValue?:(name:string, value:string) => any}} */

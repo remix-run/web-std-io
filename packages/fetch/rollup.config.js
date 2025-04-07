@@ -1,4 +1,4 @@
-import {builtinModules} from 'module';
+import {builtinModules} from 'node:module';
 import {dependencies} from './package.json';
 
 export default [

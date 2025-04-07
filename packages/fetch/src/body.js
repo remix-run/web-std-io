@@ -5,10 +5,8 @@
  * Body interface provides common methods for Request and Response
  */
 
-import Stream from 'stream';
-import {types} from 'util';
-
-import {Blob, ReadableStream} from './package.js';
+import Stream from 'node:stream';
+import {types} from 'node:util';
 
 import {FetchError} from './errors/fetch-error.js';
 import {FetchBaseError} from './errors/base.js';
@@ -380,8 +378,8 @@ class StreamIterableIterator {
 	}
 
 	/**
-	 * 
-	 * @param {any} error 
+	 *
+	 * @param {any} error
 	 * @returns {Promise<IteratorResult<T, void>>}
 	 */
 	async throw(error) {
@@ -587,7 +585,7 @@ class StreamPump {
 	}
 
 	/**
-	 * @param {Error} error 
+	 * @param {Error} error
 	 */
 	error(error) {
 		if (this.controller) {

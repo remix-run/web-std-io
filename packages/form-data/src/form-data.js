@@ -274,7 +274,8 @@ const BlobFile = class File {
    * @param {string} name
    * @param {FilePropertyBag} [options]
    */
-  constructor([blob], name, { lastModified = Date.now() } = {}) {
+  constructor([blob], name, options = {}) {
+    const { lastModified = Date.now() } = options || {}
     this.blob = blob;
     this.name = name;
     this.lastModified = lastModified;
