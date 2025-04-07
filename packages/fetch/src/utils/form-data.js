@@ -1,6 +1,6 @@
 import {randomBytes} from 'crypto';
 import { iterateMultipart } from '@web3-storage/multipart-parser';
-import { FormData, File } from '../package.js';
+import { FormData } from '../package.js';
 import { isBlob } from './is.js';
 
 const carriage = '\r\n';
