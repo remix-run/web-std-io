@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.4.3
+
+### Patch Changes
+
+- 7a8596e: If locationURL’s scheme is not an HTTP(S) scheme, then return a network error. https://fetch.spec.whatwg.org/#http-redirect-fetch
+
 ## 4.4.2
 
 ### Patch Changes
