@@ -1,5 +1,5 @@
-import http from 'http';
-import zlib from 'zlib';
+import http from 'node:http';
+import zlib from 'node:zlib';
 import Busboy from 'busboy';
 import {once} from 'events';
 

@@ -1,5 +1,5 @@
 
-import {TextEncoder} from 'util';
+import {TextEncoder} from 'node:util';
 import chai from 'chai';
 import {Response} from '@remix-run/web-fetch';
 import TestServer from './utils/server.js';

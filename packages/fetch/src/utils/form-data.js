@@ -1,4 +1,4 @@
-import {randomBytes} from 'crypto';
+import {randomBytes} from 'node:crypto';
 import { iterateMultipart } from '@web3-storage/multipart-parser';
 import { FormData } from '../package.js';
 import { isBlob } from './is.js';

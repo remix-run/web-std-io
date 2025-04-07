@@ -1,5 +1,5 @@
-import http from 'http';
-import {TextEncoder} from 'util';
+import http from 'node:http';
+import {TextEncoder} from 'node:util';
 
 import chai from 'chai';
 import FormData from 'form-data';

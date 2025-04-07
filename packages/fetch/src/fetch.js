@@ -6,13 +6,13 @@
  * All spec algorithm step numbers are based on https://fetch.spec.whatwg.org/commit-snapshots/ae716822cb3a61843226cd090eefc6589446c1d2/.
  */
 
-import http from 'http';
-import https from 'https';
-import zlib from 'zlib';
-import fs from 'fs';
+import http from 'node:http';
+import https from 'node:https';
+import zlib from 'node:zlib';
+import fs from 'node:fs';
 import * as mime from 'mrmime'
 import dataUriToBuffer from 'data-uri-to-buffer';
-import {Buffer} from 'buffer';
+import {Buffer} from 'node:buffer';
 
 import {writeToStream, fromAsyncIterable} from './body.js';
 import Response from './response.js';
@@ -21,8 +21,8 @@ import Request, {getNodeRequestOptions} from './request.js';
 import {FetchError} from './errors/fetch-error.js';
 import {AbortError} from './errors/abort-error.js';
 import {isRedirect} from './utils/is-redirect.js';
-import {pipeline as pump, PassThrough} from 'stream';
-import * as Stream from 'stream';
+import {pipeline as pump, PassThrough} from 'node:stream';
+import * as Stream from 'node:stream';
 import { FormData } from './package.js';
 
 

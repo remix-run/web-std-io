@@ -1,4 +1,4 @@
-import util from 'util';
+import util from 'node:util';
 import {Headers} from '@remix-run/web-fetch';
 import chai from 'chai';
 import chaiIterator from 'chai-iterator';
